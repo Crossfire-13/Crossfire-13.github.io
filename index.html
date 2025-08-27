@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saicharan Sangaru - Robotics Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* ===== Light Theme: Sakura ===== */
+        .light {
+            --bg-color: #FFFFFF;
+            --text-primary: #2D3748;
+            --text-secondary: #718096;
+            --accent-primary: #E53E3E; /* Sakura Pink/Red */
+            --accent-secondary: #9AE6B4; /* Light Green */
+            --skill-bg: #EDF2F7;
+            --progress-bar-bg: #E2E8F0;
+            --dot-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== Dark Theme: Red & Black ===== */
+        .dark {
+            --bg-color: #121212;
+            --text-primary: #E0E0E0;
+            --text-secondary: #A0AEC0;
+            --accent-primary: #E53E3E; /* Red */
+            --accent-secondary: #4A5568; /* Grey */
+            --skill-bg: #2D3748;
+            --progress-bar-bg: #4A5568;
+            --dot-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            /* Static dot grid background */
+            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .text-secondary { color: var(--text-secondary); }
+        .accent-primary { color: var(--accent-primary); }
+        .bg-accent-primary { background-color: var(--accent-primary); }
+        .accent-secondary { color: var(--accent-secondary); }
+        .bg-accent-secondary { background-color: var(--accent-secondary); }
+        
+        .nav-link.active span:first-child {
+            width: 3rem;
+            background-color: var(--accent-primary);
+        }
+        .nav-link.active span:last-child {
+            color: var(--text-primary);
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom toggle */
+        .theme-toggle {
+            cursor: pointer;
+            width: 50px;
+            height: 25px;
+            border-radius: 9999px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .light .theme-toggle { background-color: #CBD5E0; }
+        .dark .theme-toggle { background-color: #4A5568; }
+
+        .theme-toggle-dot {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background-color: white;
+            transition: transform 0.3s;
+        }
+        .dark .theme-toggle-dot {
+            transform: translateX(25px);
+        }
+
+        /* Profile picture */
+        .profile-pic {
+            transition: transform 0.3s ease-out;
+        }
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+
+        /* Skills section */
+        .skill-item {
+            background-color: var(--skill-bg);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            transition: transform 0.3s ease-out;
+            cursor: default;
+        }
+        .skill-item:hover {
+            transform: translateY(-4px);
+        }
+        .skill-progress-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
+        }
+        .skill-item:hover .skill-progress-wrapper {
+            max-height: 50px; /* Adjust as needed */
+            margin-top: 0.75rem;
+        }
+        .progress-bar-bg {
+            background-color: var(--progress-bar-bg);
+            border-radius: 9999px;
+            height: 6px;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.8s ease-in-out;
+            width: 0;
+        }
+        .skill-item:hover .progress-bar {
+            width: var(--skill-level);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lg:flex">
+        <!-- Left Sidebar -->
+        <header class="lg:w-1/2 lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:flex-col lg:justify-between lg:py-24 px-8 md:px-12 lg:px-24">
+            <div>
+                <a href="#" class="block mb-8">
+                    <img src="https://placehold.co/160x160/E2E8F0/2D3748?text=SS" alt="Saicharan Sangaru" class="rounded-full w-32 h-32 lg:w-40 lg:h-40 profile-pic">
+                </a>
+                <h1 class="text-4xl font-black tracking-tight sm:text-5xl">Saicharan Sangaru</h1>
+                <h2 class="mt-3 text-lg font-medium tracking-tight sm:text-xl">Robotics Engineer</h2>
+                <p class="mt-4 max-w-xs leading-normal text-secondary">
+                    I build intelligent systems and innovative solutions at the intersection of hardware and software.
+                </p>
+                <nav class="hidden lg:block mt-16">
+                    <ul class="w-max">
+                        <li><a class="group flex items-center py-3 nav-link" href="#about">
+                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
+                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">About</span>
+                        </a></li>
+                        <li><a class="group flex items-center py-3 nav-link" href="#experience">
+                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
+                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">Experience</span>
+                        </a></li>
+                        <li><a class="group flex items-center py-3 nav-link" href="#skills">
+                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
+                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">Skills</span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="mt-8 flex items-center">
+                 <div id="theme-toggle" class="theme-toggle">
+                    <div class="theme-toggle-dot"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Right Content -->
+        <main class="lg:w-1/2 pt-24 lg:py-24 px-8 md:px-12 lg:px-16">
+            <section id="about" class="mb-16 md:mb-24 section">
+                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-4 lg:hidden">About</h3>
+                <p class="text-secondary mb-4">
+                    A forward-thinking Robotics Engineering student with a passion for leveraging technology to solve real-world problems. My foundation in mathematics, physics, and computer science, combined with hands-on project experience, has cultivated a strong analytical and creative approach to engineering.
+                </p>
+                <p class="text-secondary">
+                    I am deeply interested in the convergence of AI and robotics, aiming to contribute to the development of intelligent, autonomous systems that drive innovation and efficiency.
+                </p>
+            </section>
+
+            <section id="experience" class="mb-16 md:mb-24 section">
+                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-6 lg:hidden">Experience</h3>
+                <div class="space-y-12">
+                    <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">Aug 2024 — Present</header>
+                        <div class="z-10 sm:col-span-6">
+                            <h3 class="font-medium leading-snug">
+                                <div><span class="font-bold">Repair Technician (Placement)</span> · Fixmytek</div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-secondary">
+                                Spearheaded a full workshop relocation to optimize layout and significantly boost repair capacity. Engineered a novel diagnostic workflow, reducing misdiagnoses and improving customer turnaround times.
+                            </p>
+                        </div>
+                    </div>
+                     <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">Sep 2023 — Aug 2024</header>
+                        <div class="z-10 sm:col-span-6">
+                            <h3 class="font-medium leading-snug">
+                                <div><span class="font-bold">Repair Technician (Part-Time)</span> · Fixmytek</div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-secondary">
+                                Contributed to the goal of increased sustainability in tech repair to reduce E-Waste as a repair technician and refurbishment lead.
+                            </p>
+                        </div>
+                    </div>
+                     <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">Jan — May 2022</header>
+                        <div class="z-10 sm:col-span-6">
+                            <h3 class="font-medium leading-snug">
+                                <div><span class="font-bold">IT Support Engineer</span> · Manshiv Business Solutions Ltd</div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-secondary">
+                                Provided comprehensive IT business solutions as a Google Workspace Administrator, desktop support engineer, and project coordinator.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="mb-16 md:mb-24 section">
+                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-6 lg:hidden">Skills</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="skill-item">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">Python</span>
+                            <span class="text-secondary text-sm">4/5</span>
+                        </div>
+                        <div class="skill-progress-wrapper">
+                            <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 80%;"></div></div>
+                        </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">C/C++</span>
+                            <span class="text-secondary text-sm">3/5</span>
+                        </div>
+                        <div class="skill-progress-wrapper">
+                            <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 60%;"></div></div>
+                        </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">Arduino</span>
+                            <span class="text-secondary text-sm">4/5</span>
+                        </div>
+                        <div class="skill-progress-wrapper">
+                            <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 80%;"></div></div>
+                        </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">Raspberry Pi</span>
+                            <span class="text-secondary text-sm">3/5</span>
+                        </div>
+                        <div class="skill-progress-wrapper">
+                            <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 60%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">Soldering & Hardware</span>
+                            <span class="text-secondary text-sm">5/5</span>
+                        </div>
+                        <div class="skill-progress-wrapper">
+                            <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 100%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold">Hardware Diagnostics</span>
+                            <span class="text-secondary text-sm">5/5</span>
+                        </div>
+                        <div class="skill-progress-wrapper">
+                            <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 100%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="text-sm text-secondary text-center lg:text-left py-8">
+                <p>Coded in Visual Studio Code. Built with Tailwind CSS and deployed with Vercel.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Theme switcher
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        // Function to apply the theme
+        function applyTheme(theme) {
+            htmlEl.classList.remove('light', 'dark');
+            htmlEl.classList.add(theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        // Set initial theme from local storage or default to dark
+        const initialTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(initialTheme);
+
+        // Event listener for the toggle
+        themeToggle.addEventListener('click', () => {
+            const newTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Scroll animations
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Update active nav link
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: "-30% 0px -30% 0px" });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+    </script>
+</body>
+</html>

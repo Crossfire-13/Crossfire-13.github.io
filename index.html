@@ -19,16 +19,17 @@
 
         /* ===== Themes ===== */
         .light {
-            --bg-color: #fcf8f2; /* Android 12 Sandstone Beige */
-            --text-primary: #3d342d; /* Deep Earthy Brown */
-            --text-secondary: #6b5a4d; /* Muted Clay */
-            --accent-primary: #b0704d; /* Sandstone Terracotta */
-            --accent-secondary: #f3ece4; /* Light Sand */
-            --border-color: #c9b7a5; /* High-contrast Tan Border */
-            --mountain-color: #bfae9e; /* Desert Mountain Line */
-            --nav-bg: rgba(252, 248, 242, 0.9);
+            --bg-color: #fcf8f2; 
+            --text-primary: #3d342d; 
+            --text-secondary: #5d5045; 
+            --accent-primary: #b0704d; 
+            --accent-secondary: #f3ece4; 
+            --border-color: #c4b3a1; 
+            --mountain-color: #bfae9e; 
+            --nav-bg: rgba(252, 248, 242, 0.95);
             --star-color: rgba(176, 112, 77, 0.4);
-            --card-bg: rgba(61, 52, 45, 0.05);
+            --card-bg: rgba(61, 52, 45, 0.04);
+            --skill-badge-bg: rgba(176, 112, 77, 0.1);
         }
 
         .dark {
@@ -37,11 +38,12 @@
             --text-secondary: #94a3b8;
             --accent-primary: #ef4444; 
             --accent-secondary: #1e293b; 
-            --border-color: #1e293b; /* Dark mode border */
+            --border-color: #1e293b; 
             --mountain-color: #334155;
-            --nav-bg: rgba(11, 14, 20, 0.9);
+            --nav-bg: rgba(11, 14, 20, 0.95);
             --star-color: rgba(239, 68, 68, 0.6);
             --card-bg: rgba(255, 255, 255, 0.05);
+            --skill-badge-bg: rgba(255, 255, 255, 0.05);
         }
         
         body {
@@ -49,11 +51,9 @@
             color: var(--text-primary);
         }
 
-        /* Global Theme Text Helpers */
         .text-primary { color: var(--text-primary); }
         .text-secondary { color: var(--text-secondary); }
 
-        /* ===== Persistent Simple Line Scenery ===== */
         #background-scenery {
             position: fixed;
             bottom: 0;
@@ -62,16 +62,15 @@
             height: 100px;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.4;
+            opacity: 0.5;
         }
         .line-art {
             stroke: var(--mountain-color);
-            stroke-width: 2;
+            stroke-width: 2.5;
             fill: none;
             transition: stroke 0.5s ease;
         }
 
-        /* ===== Top Navigation ===== */
         header {
             background-color: var(--nav-bg);
             backdrop-filter: blur(12px);
@@ -98,7 +97,6 @@
         }
         .nav-link.active::after { width: 100%; }
 
-        /* ===== Expanding Shapes for Cards ===== */
         .expert-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -120,24 +118,11 @@
             transition: width 0.6s ease, height 0.6s ease;
             z-index: 0;
         }
-        .expert-card:hover::before {
-            width: 300%;
-            height: 300%;
-        }
-        .expert-card:hover {
-            transform: scale(1.05);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
-        }
+        .expert-card:hover::before { width: 300%; height: 300%; }
+        .expert-card:hover { transform: scale(1.05); border-color: var(--accent-primary); }
 
-        /* Arsenal/Skill Cards Visibility */
-        .arsenal-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
-        }
+        .arsenal-card { background-color: var(--card-bg); border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
 
-        /* ===== View Transitions ===== */
         .view-transition { transition: opacity 0.4s ease, transform 0.4s ease; }
         .hidden-view { display: none; opacity: 0; }
 
@@ -147,13 +132,9 @@
             border: 1px solid var(--border-color);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--accent-primary);
-        }
+        .project-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent-primary); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
-        /* Star container */
         #star-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .star { position: absolute; width: 2px; height: 80px; background: linear-gradient(to bottom, transparent, var(--accent-primary)); opacity: 0; transform: rotate(45deg); }
         @keyframes shooting { 0% { transform: rotate(45deg) translateY(-200px); opacity: 0; } 10% { opacity: 1; } 100% { transform: rotate(45deg) translateY(100vh); opacity: 0; } }
@@ -163,7 +144,6 @@
 
     <div id="star-container"></div>
 
-    <!-- Dino Line Art Mountains and Cactus -->
     <svg id="background-scenery" viewBox="0 0 1000 100" preserveAspectRatio="none">
         <path class="line-art" d="M100,100 L200,20 L300,100" />
         <path class="line-art" d="M250,100 L400,40 L550,100" />
@@ -171,7 +151,6 @@
         <line class="line-art" x1="0" y1="100" x2="1000" y2="100" />
     </svg>
 
-    <!-- Header Navigation -->
     <header class="fixed top-0 left-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2 cursor-pointer" onclick="setView('home')">
@@ -234,18 +213,17 @@
                         <div class="expert-card p-8 rounded-[2rem] relative z-10 cursor-default group">
                             <i data-lucide="brain" class="text-red-500 mb-6 w-8 h-8 group-hover:scale-110 transition-transform"></i>
                             <h4 class="text-xl font-bold mb-3 text-primary">High-Level</h4>
-                            <p class="text-sm text-secondary leading-relaxed">ROS 2, VLM, SLAM, and Pathfinding algorithms.</p>
+                            <p class="text-sm text-secondary leading-relaxed font-medium">ROS 2, VLM, SLAM, and Pathfinding algorithms.</p>
                         </div>
                         <div class="expert-card p-8 rounded-[2rem] relative z-10 cursor-default group">
                             <i data-lucide="cpu" class="text-red-500 mb-6 w-8 h-8 group-hover:scale-110 transition-transform"></i>
                             <h4 class="text-xl font-bold mb-3 text-primary">Low-Level</h4>
-                            <p class="text-sm text-secondary leading-relaxed">PLC Programming, Motherboard diagnostics, Wiring.</p>
+                            <p class="text-sm text-secondary leading-relaxed font-medium">PLC Programming, Motherboard diagnostics, Wiring.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Projects Section -->
             <section id="projects-section" class="mb-32">
                 <div class="flex justify-between items-end mb-10">
                     <h3 class="text-3xl font-black text-primary">Featured Projects</h3>
@@ -255,13 +233,14 @@
                     </div>
                 </div>
                 <div id="project-scroll" class="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x">
+                    <!-- Project cards will be populated via JS for consistency if needed, but keeping HTML structure -->
                     <div onclick="openProject(0)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
                         <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
                             <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=800" class="w-full h-full object-cover">
                         </div>
                         <div class="p-4 text-center">
                             <h5 class="text-xl font-bold mb-1 text-primary">Hybrid Embodied AI</h5>
-                            <p class="text-sm text-secondary">VLM + LiDAR Perception</p>
+                            <p class="text-sm text-secondary font-medium">VLM + LiDAR Perception</p>
                         </div>
                     </div>
                     <div onclick="openProject(1)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
@@ -270,7 +249,7 @@
                         </div>
                         <div class="p-4 text-center">
                             <h5 class="text-xl font-bold mb-1 text-primary">Pandemic Response Robot</h5>
-                            <p class="text-sm text-secondary">Autonomous Medical Delivery</p>
+                            <p class="text-sm text-secondary font-medium">Autonomous Medical Delivery</p>
                         </div>
                     </div>
                     <div onclick="openProject(2)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
@@ -279,39 +258,48 @@
                         </div>
                         <div class="p-4 text-center">
                             <h5 class="text-xl font-bold mb-1 text-primary">PLC Industrial Automation</h5>
-                            <p class="text-sm text-secondary">Factory Efficiency Systems</p>
+                            <p class="text-sm text-secondary font-medium">Factory Efficiency Systems</p>
+                        </div>
+                    </div>
+                    <!-- New Project: Key Grabber -->
+                    <div onclick="openProject(3)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
+                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4 text-center">
+                            <h5 class="text-xl font-bold mb-1 text-primary">Key Grabber Project</h5>
+                            <p class="text-sm text-secondary font-medium">Embedded System Design</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Technical Arsenal Section -->
             <section id="skills-section" class="mb-32">
                 <h3 class="text-3xl font-black mb-12 text-center text-primary">Technical Arsenal</h3>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="p-8 arsenal-card rounded-3xl text-center">
+                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
                         <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Software</h4>
                         <div class="flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">ROS 2</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">C++</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Python</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">SLAM</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">ROS 2</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">C++</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Python</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">SLAM</span>
                         </div>
                     </div>
-                    <div class="p-8 arsenal-card rounded-3xl text-center">
+                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
                         <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Electronics</h4>
                         <div class="flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">PCB Design</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Diagnostics</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Soldering</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">PCB Design</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Diagnostics</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Soldering</span>
                         </div>
                     </div>
-                    <div class="p-8 arsenal-card rounded-3xl text-center">
+                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
                         <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Industrial</h4>
                         <div class="flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Siemens PLC</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">BS 7671</span>
-                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">SolidWorks</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Siemens PLC</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">BS 7671</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">SolidWorks</span>
                         </div>
                     </div>
                 </div>
@@ -323,25 +311,17 @@
             <div class="max-w-4xl mx-auto">
                 <header class="mb-16 text-center text-primary">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-2">Detailed Biography</h3>
-                    <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">Engineering my way forward.</h1>
+                    <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight text-primary">Engineering my way forward.</h1>
                     <div class="h-1 w-24 bg-red-500 rounded-full mx-auto"></div>
                 </header>
 
                 <div class="grid gap-16 text-lg text-secondary leading-relaxed">
-                    <!-- Profile Section -->
                     <section class="space-y-6">
                         <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
                             <i data-lucide="user" class="text-red-500"></i> Profile
                         </h4>
-                        <p>
-                            As a robotics engineering student, I am driven by the desire to <span class="text-primary font-medium">learn, create, and innovate</span>. My academic journey in mathematics, physics, and computer science has been critical in my understanding of the foundational concepts of robotics. My coursework has equipped me with analytical and problem-solving skills necessary to approach complex engineering problems with confidence and creativity.
-                        </p>
-                        <p>
-                            I am particularly interested in the integration of machine learning and artificial intelligence into the design and control of robotics systems. I have worked on projects ranging from designing mobile robots to programming autonomous systems. These projects have taught me valuable lessons in project management, time management, and communication. My goal is to make significant contributions to the development of intelligent robots that can solve real-world problems.
-                        </p>
+                        <p>As a robotics engineering student, I am driven by the desire to <span class="text-primary font-bold">learn, create, and innovate</span>. My academic journey has been critical in understanding foundational robotics concepts.</p>
                     </section>
-
-                    <!-- Education Section -->
                     <section class="space-y-8">
                         <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
                             <i data-lucide="graduation-cap" class="text-red-500"></i> Education & Qualifications
@@ -351,73 +331,7 @@
                                 <div class="absolute -left-[49px] top-2 w-4 h-4 rounded-full bg-red-500 shadow-[0_0_15px_#ef4444]"></div>
                                 <span class="text-sm font-bold text-red-500 uppercase tracking-widest">Sept 2022 — Present</span>
                                 <h5 class="text-2xl font-bold text-primary mt-1">BEng (Hons) Robotics Engineering</h5>
-                                <p class="text-secondary font-medium mb-4">University of the West of England (UWE), Bristol</p>
-                                <p class="italic text-secondary">Expected Graduation: 2026.</p>
-                                <div class="mt-4 p-4 bg-[var(--card-bg)] rounded-2xl border border-[var(--border-color)]">
-                                    <p class="text-sm font-bold uppercase tracking-wider text-secondary mb-2 text-primary">Key Coursework:</p>
-                                    <p class="text-base text-secondary">Programming for Engineers, Further Robotics Principles, Mathematics for Engineering Students.</p>
-                                </div>
-                            </div>
-
-                            <div class="relative">
-                                <div class="absolute -left-[49px] top-2 w-4 h-4 rounded-full bg-slate-700"></div>
-                                <span class="text-sm font-bold text-red-500 uppercase tracking-widest">2019 — 2021</span>
-                                <h5 class="text-2xl font-bold text-primary mt-1">BTEC Level 3 Extended Diploma in Engineering</h5>
-                                <p class="text-secondary font-medium mb-4">SCLP Samaj College</p>
-                                <p class="text-green-600 font-black tracking-wide uppercase text-sm">Awarded DISTINCTION.</p>
-                                <div class="mt-4 p-4 bg-[var(--card-bg)] rounded-2xl border border-[var(--border-color)]">
-                                    <p class="text-sm font-bold uppercase tracking-wider text-secondary mb-2 text-primary">Key Coursework & Focus:</p>
-                                    <p class="text-base text-secondary">Three Phase Motors and Drives (Distinction), Further Mathematics for Engineering Technicians (Distinction).</p>
-                                    <p class="mt-3 text-base text-secondary">Final year project focused on an <span class="text-red-500 font-medium">Autonomous Robotics Delivery System</span>.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Work Experience Section -->
-                    <section class="space-y-8">
-                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
-                            <i data-lucide="briefcase" class="text-red-500"></i> Work Experience
-                        </h4>
-                        <div class="space-y-12">
-                            <div class="group">
-                                <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-2">
-                                    <h5 class="text-2xl font-bold text-primary group-hover:text-red-500 transition-colors">Repair Technician (Full-Time Placement)</h5>
-                                    <div class="text-right">
-                                        <p class="text-sm font-bold text-primary">Fixmytek, Bristol</p>
-                                        <p class="text-xs font-bold text-secondary uppercase tracking-widest">Aug 2024 — Aug 2025</p>
-                                    </div>
-                                </div>
-                                <ul class="space-y-3 text-base list-none">
-                                    <li class="flex gap-3 text-secondary"><i data-lucide="check-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> <span>Led the planning and execution of a workshop relocation, boosting repair capacity and creating a dedicated secure data erasure zone.</span></li>
-                                    <li class="flex gap-3 text-secondary"><i data-lucide="check-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> <span>Developed and implemented a new diagnostic workflow using an HDMI tester to accurately isolate faults.</span></li>
-                                    <li class="flex gap-3 text-secondary"><i data-lucide="check-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> <span>Managed batch refurbishment projects from assessment to final quality control.</span></li>
-                                </ul>
-                            </div>
-
-                            <div class="group">
-                                <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-2 text-primary font-bold">
-                                    <h5 class="text-2xl">Repair Technician (Part-Time)</h5>
-                                    <p class="text-xs uppercase">Sept 2023 — Aug 2024</p>
-                                </div>
-                                <p class="text-base text-secondary italic">Tech repair company focused on sustainability. Role: Repair Technician, Refurb Lead.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Technical Skills Breakdown -->
-                    <section class="space-y-8">
-                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
-                            <i data-lucide="wrench" class="text-red-500"></i> Detailed Technical Skills
-                        </h4>
-                        <div class="grid sm:grid-cols-2 gap-6">
-                            <div class="p-6 arsenal-card rounded-3xl">
-                                <h5 class="font-bold text-primary mb-3 uppercase tracking-widest text-xs">Robotics & Automation</h5>
-                                <p class="text-sm text-secondary">Designing task robots, Python automation, Arduino, Raspberry PI.</p>
-                            </div>
-                            <div class="p-6 arsenal-card rounded-3xl">
-                                <h5 class="font-bold text-primary mb-3 uppercase tracking-widest text-xs">Electronics & Hardware</h5>
-                                <p class="text-sm text-secondary">Soldering, Multimeters, Oscilloscopes, ESD safety protocols.</p>
+                                <p class="text-secondary font-bold">UWE Bristol (Expected Graduation: 2026)</p>
                             </div>
                         </div>
                     </section>
@@ -427,9 +341,9 @@
 
         <!-- 3. DETAIL VIEW -->
         <div id="detail-view" class="view-transition hidden">
-            <button onclick="setView('home')" class="mb-12 flex items-center gap-2 text-secondary hover:text-red-500 group font-bold">
+            <button onclick="setView('home')" class="mb-12 flex items-center gap-2 text-secondary hover:text-red-500 group font-black uppercase text-xs tracking-widest">
                 <i data-lucide="arrow-left" class="group-hover:-translate-x-1 transition-transform"></i>
-                <span class="font-bold uppercase tracking-widest text-xs">Back to Overview</span>
+                Back to Overview
             </button>
             <div id="detail-content"></div>
         </div>
@@ -438,12 +352,11 @@
         <div id="contact-view" class="view-transition hidden">
             <div class="max-w-3xl mx-auto text-center py-20">
                 <h3 class="text-5xl lg:text-7xl font-black italic mb-6 text-primary">Thinking of hiring?</h3>
-                <p class="text-xl text-secondary mb-12">I am currently open to Robotics placements for 2026. Enter your email to receive my full CV instantly.</p>
-
+                <p class="text-xl text-secondary mb-12 font-medium">I am currently open to Robotics placements for 2026. Enter your email to receive my full CV instantly.</p>
                 <div class="p-12 arsenal-card rounded-[3rem] shadow-2xl backdrop-blur-md">
                     <div id="email-capture-container" class="space-y-6">
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <input type="email" id="contact-email" placeholder="recruiter@company.com" class="flex-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-all text-primary">
+                            <input type="email" id="contact-email" placeholder="recruiter@company.com" class="flex-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-all text-primary font-medium">
                             <button onclick="submitEmail()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl shadow-red-500/20 active:scale-95">Send CV</button>
                         </div>
                     </div>
@@ -466,7 +379,8 @@
                     { name: "VLM", brief: "Spatial reasoning based on natural language." },
                     { name: "LiDAR", brief: "Solid-state density mapping." }
                 ],
-                year: "2026"
+                year: "2026",
+                githubUrl: "" // Placeholder
             },
             {
                 title: "Pandemic Response Robot",
@@ -478,7 +392,8 @@
                     { name: "Pathfinding", brief: "Dynamic route optimization." },
                     { name: "Sensors", brief: "Ultrasonic and infrared integration." }
                 ],
-                year: "2021"
+                year: "2021",
+                githubUrl: "" // Placeholder
             },
             {
                 title: "PLC Automation",
@@ -487,10 +402,23 @@
                 description: "Industrial-grade control systems using Siemens S7-1200 logic. Adheres to strict BS 7671 electrical standards.",
                 techBriefs: [
                     { name: "Siemens PLC", brief: "Ladder logic for factory line automation." },
-                    { name: "BS 7671", brief: "Electrical wiring safety compliance." },
-                    { name: "Diagnostics", brief: "Fault finding using signal analysis tools." }
+                    { name: "BS 7671", brief: "Electrical wiring safety compliance." }
                 ],
-                year: "2023"
+                year: "2023",
+                githubUrl: "" // Placeholder
+            },
+            {
+                title: "Key Grabber Project",
+                subtitle: "Hardware-Software Security Interface",
+                image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1200",
+                description: "A specialized hardware-software project focused on capturing and interpreting physical input signals. Developed using low-level C++ and embedded systems protocols to interface with various key-based hardware components.",
+                techBriefs: [
+                    { name: "C++", brief: "Core logic and signal processing implementation." },
+                    { name: "Embedded Systems", brief: "Direct hardware interfacing and memory optimization." },
+                    { name: "Microcontrollers", brief: "Polling and interrupt-driven input capture." }
+                ],
+                year: "2024",
+                githubUrl: "https://github.com/Crossfire-13/Key_Grabber_Project"
             }
         ];
 
@@ -523,16 +451,35 @@
 
         function openProject(index) {
             const p = projects[index];
+            const githubLinkHtml = p.githubUrl 
+                ? `<a href="${p.githubUrl}" target="_blank" class="flex items-center gap-2 bg-[var(--accent-primary)] text-white px-5 py-2.5 rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-orange-900/20">
+                    <i data-lucide="github" class="w-5 h-5"></i> View on GitHub
+                   </a>`
+                : `<div class="flex items-center gap-2 border border-[var(--border-color)] text-secondary px-5 py-2.5 rounded-xl font-bold opacity-50 cursor-not-allowed">
+                    <i data-lucide="github" class="w-5 h-5"></i> Link Coming Soon
+                   </div>`;
+
             document.getElementById('detail-content').innerHTML = `
-                <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Completion</h3>
-                <h1 class="text-6xl font-black mb-8 leading-tight text-primary">${p.title}</h1>
+                <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+                    <div class="flex-1">
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Completion</h3>
+                        <h1 class="text-6xl font-black mb-4 leading-tight text-primary">${p.title}</h1>
+                        <p class="text-2xl text-secondary font-medium">${p.subtitle}</p>
+                    </div>
+                    <div class="flex-shrink-0 pt-2">
+                        ${githubLinkHtml}
+                    </div>
+                </div>
+                
                 <img src="${p.image}" class="w-full rounded-[3rem] mb-12 shadow-2xl border border-[var(--border-color)]">
+                
                 <div class="grid md:grid-cols-2 gap-12 text-secondary">
-                    <div><h4 class="text-xl font-bold mb-4 text-primary">Overview</h4><p class="text-lg leading-relaxed">${p.description}</p></div>
+                    <div><h4 class="text-xl font-bold mb-4 text-primary">Overview</h4><p class="text-lg leading-relaxed font-medium">${p.description}</p></div>
                     <div><h4 class="text-xl font-bold mb-4 text-red-500">Technology Briefs</h4>
-                    <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary">${t.name}</p><p class="text-sm">${t.brief}</p></div>`).join('')}</div></div>
+                    <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary">${t.name}</p><p class="text-sm font-medium">${t.brief}</p></div>`).join('')}</div></div>
                 </div>
             `;
+            lucide.createIcons(); // Re-initialize icons for the new HTML
             setView('detail');
         }
 
@@ -544,19 +491,16 @@
         function submitEmail() {
             const email = document.getElementById('contact-email');
             const status = document.getElementById('email-status');
-            const container = document.getElementById('email-capture-container');
             if (submissionCount >= 5) {
                 status.innerText = "IP Limit reached (5 max). Please contact me on LinkedIn.";
                 status.className = "mt-4 text-sm font-medium text-red-500 p-4 bg-red-500/10 rounded-xl";
                 status.classList.remove('hidden');
-                container.classList.add('opacity-50', 'pointer-events-none');
                 return;
             }
             if(!email.value.includes('@')) return;
             submissionCount++;
             localStorage.setItem('ss_sub_count', submissionCount);
             status.innerText = "Success! Request sent.";
-            status.className = "mt-4 text-sm font-medium text-green-600 p-4 bg-green-400/10 rounded-xl";
             status.classList.remove('hidden');
             email.value = "";
         }

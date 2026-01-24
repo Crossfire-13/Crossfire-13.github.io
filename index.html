@@ -5,500 +5,590 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saicharan Sangaru - Robotics Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* ===== Light Theme: Sakura ===== */
+        /* ===== Themes ===== */
         .light {
-            --bg-color: #FFFFFF;
-            --text-primary: #2D3748;
-            --text-secondary: #718096;
-            --accent-primary: #E53E3E; /* Sakura Pink/Red */
-            --accent-secondary: #9AE6B4; /* Light Green */
-            --skill-bg: #EDF2F7;
-            --progress-bar-bg: #E2E8F0;
-            --dot-color: rgba(0, 0, 0, 0.1);
-            --tooltip-bg: #F7FAFC;
-            --tooltip-border: #E2E8F0;
+            --bg-color: #fcf8f2; /* Android 12 Sandstone Beige */
+            --text-primary: #3d342d; /* Deep Earthy Brown */
+            --text-secondary: #6b5a4d; /* Muted Clay */
+            --accent-primary: #b0704d; /* Sandstone Terracotta */
+            --accent-secondary: #f3ece4; /* Light Sand */
+            --border-color: #c9b7a5; /* High-contrast Tan Border */
+            --mountain-color: #bfae9e; /* Desert Mountain Line */
+            --nav-bg: rgba(252, 248, 242, 0.9);
+            --star-color: rgba(176, 112, 77, 0.4);
+            --card-bg: rgba(61, 52, 45, 0.05);
         }
 
-        /* ===== Dark Theme: Red & Black ===== */
         .dark {
-            --bg-color: #121212;
-            --text-primary: #E0E0E0;
-            --text-secondary: #A0AEC0;
-            --accent-primary: #E53E3E; /* Red */
-            --accent-secondary: #4A5568; /* Grey */
-            --skill-bg: #2D3748;
-            --progress-bar-bg: #4A5568;
-            --dot-color: rgba(255, 255, 255, 0.1);
-            --tooltip-bg: #1A202C;
-            --tooltip-border: #2D3748;
+            --bg-color: #0b0e14;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #ef4444; 
+            --accent-secondary: #1e293b; 
+            --border-color: #1e293b; /* Dark mode border */
+            --mountain-color: #334155;
+            --nav-bg: rgba(11, 14, 20, 0.9);
+            --star-color: rgba(239, 68, 68, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.05);
         }
         
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            /* Static dot grid background */
-            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
-            background-size: 20px 20px;
         }
 
+        /* Global Theme Text Helpers */
+        .text-primary { color: var(--text-primary); }
         .text-secondary { color: var(--text-secondary); }
-        .accent-primary { color: var(--accent-primary); }
-        .bg-accent-primary { background-color: var(--accent-primary); }
-        .accent-secondary { color: var(--accent-secondary); }
-        .bg-accent-secondary { background-color: var(--accent-secondary); }
-        
-        .nav-link.active span:first-child {
-            width: 3rem;
-            background-color: var(--accent-primary);
-        }
-        .nav-link.active span:last-child {
-            color: var(--text-primary);
-        }
-        
-        .section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
 
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Custom toggle */
-        .theme-toggle {
-            cursor: pointer;
-            width: 50px;
-            height: 25px;
-            border-radius: 9999px;
-            position: relative;
-            transition: background-color 0.3s;
-        }
-        .light .theme-toggle { background-color: #CBD5E0; }
-        .dark .theme-toggle { background-color: #4A5568; }
-
-        .theme-toggle-dot {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background-color: white;
-            transition: transform 0.3s;
-        }
-        .dark .theme-toggle-dot {
-            transform: translateX(25px);
-        }
-
-        /* Profile picture */
-        .profile-pic {
-            transition: transform 0.3s ease-out;
-        }
-        .profile-pic:hover {
-            transform: scale(1.05);
-        }
-
-        /* Skills section */
-        .skill-item {
-            background-color: var(--skill-bg);
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            transition: transform 0.3s ease-out;
-            cursor: default;
-            position: relative;
-            overflow: hidden;
-        }
-        .skill-item:hover {
-            transform: translateY(-4px);
-        }
-        .skill-progress-wrapper {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
-        }
-        .skill-item:hover .skill-progress-wrapper {
-            max-height: 50px; 
-            margin-top: 0.75rem;
-        }
-        .progress-bar-bg {
-            background-color: var(--progress-bar-bg);
-            border-radius: 9999px;
-            height: 6px;
-        }
-        .progress-bar {
-            height: 100%;
-            border-radius: 9999px;
-            transition: width 0.8s ease-in-out;
-            width: 0;
-        }
-        .skill-item:hover .progress-bar {
-            width: var(--skill-level);
-        }
-
-        /* Skill Logo Animation */
-        .skill-logo {
-            height: 1.25rem; /* 20px */
-            width: 1.25rem;  /* 20px */
-            margin-left: 0.5rem; /* 8px */
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            color: var(--text-secondary);
-        }
-        .skill-item:hover .skill-logo {
-            opacity: 0.7;
-        }
-        
-        /* Project Tag Tooltip */
-        .project-tag-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem;
-            width: max-content;
-            max-width: 250px;
-            font-size: 0.75rem;
-            line-height: 1.25;
-            background-color: var(--tooltip-bg);
-            border: 1px solid var(--tooltip-border);
-            color: var(--text-primary);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
+        /* ===== Persistent Simple Line Scenery ===== */
+        #background-scenery {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
             pointer-events: none;
-            z-index: 10;
+            z-index: 0;
+            opacity: 0.4;
         }
-        .project-tag-wrapper:hover .project-tag-tooltip {
-            opacity: 1;
-            visibility: visible;
+        .line-art {
+            stroke: var(--mountain-color);
+            stroke-width: 2;
+            fill: none;
+            transition: stroke 0.5s ease;
         }
+
+        /* ===== Top Navigation ===== */
+        header {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link.active::after { width: 100%; }
+
+        /* ===== Expanding Shapes for Cards ===== */
+        .expert-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            position: relative;
+        }
+        .expert-card::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--accent-primary);
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: 0;
+        }
+        .expert-card:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+        .expert-card:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        /* Arsenal/Skill Cards Visibility */
+        .arsenal-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+
+        /* ===== View Transitions ===== */
+        .view-transition { transition: opacity 0.4s ease, transform 0.4s ease; }
+        .hidden-view { display: none; opacity: 0; }
+
+        .project-card {
+            min-width: 320px;
+            background: var(--accent-secondary);
+            border: 1px solid var(--border-color);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-primary);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* Star container */
+        #star-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .star { position: absolute; width: 2px; height: 80px; background: linear-gradient(to bottom, transparent, var(--accent-primary)); opacity: 0; transform: rotate(45deg); }
+        @keyframes shooting { 0% { transform: rotate(45deg) translateY(-200px); opacity: 0; } 10% { opacity: 1; } 100% { transform: rotate(45deg) translateY(100vh); opacity: 0; } }
     </style>
 </head>
-<body>
+<body class="selection:bg-red-500/30">
 
-    <div class="lg:flex">
-        <!-- Left Sidebar -->
-        <header class="lg:w-1/2 lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:flex-col lg:justify-between lg:py-24 px-8 md:px-12 lg:px-24">
-            <div>
-                <a href="#" class="block mb-8">
-                    <img src="https://placehold.co/160x160/E2E8F0/2D3748?text=SS" alt="Saicharan Sangaru" class="rounded-full w-32 h-32 lg:w-40 lg:h-40 profile-pic">
-                </a>
-                <h1 class="text-4xl font-black tracking-tight sm:text-5xl">Saicharan Sangaru</h1>
-                <h2 class="mt-3 text-lg font-medium tracking-tight sm:text-xl">Robotics Engineer</h2>
-                <p class="mt-4 max-w-xs leading-normal text-secondary">
-                    I build intelligent systems and innovative solutions at the intersection of hardware and software.
-                </p>
-                <nav class="hidden lg:block mt-16">
-                    <ul class="w-max">
-                        <li><a class="group flex items-center py-3 nav-link" href="#about">
-                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
-                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">About</span>
-                        </a></li>
-                        <li><a class="group flex items-center py-3 nav-link" href="#experience">
-                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
-                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">Experience</span>
-                        </a></li>
-                         <li><a class="group flex items-center py-3 nav-link" href="#projects">
-                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
-                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">Projects</span>
-                        </a></li>
-                        <li><a class="group flex items-center py-3 nav-link" href="#skills">
-                            <span class="nav-indicator mr-4 h-px w-8 bg-gray-400 transition-all group-hover:w-16 group-hover:bg-accent-primary"></span>
-                            <span class="nav-text text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary">Skills</span>
-                        </a></li>
-                    </ul>
-                </nav>
+    <div id="star-container"></div>
+
+    <!-- Dino Line Art Mountains and Cactus -->
+    <svg id="background-scenery" viewBox="0 0 1000 100" preserveAspectRatio="none">
+        <path class="line-art" d="M100,100 L200,20 L300,100" />
+        <path class="line-art" d="M250,100 L400,40 L550,100" />
+        <path class="line-art" d="M800,100 L800,60 M785,80 L800,80 M800,70 L815,70" />
+        <line class="line-art" x1="0" y1="100" x2="1000" y2="100" />
+    </svg>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="setView('home')">
+                <span class="font-black text-2xl tracking-tighter uppercase text-primary">SS<span class="text-red-500">.</span></span>
             </div>
-            <div class="mt-8 flex items-center space-x-6">
-                 <div id="theme-toggle" class="theme-toggle">
-                    <div class="theme-toggle-dot"></div>
-                </div>
-                 <a href="https://www.linkedin.com/in/charan-sangaru-b4a702256/" target="_blank" class="text-secondary hover:text-primary transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                 </a>
+            
+            <nav class="hidden md:flex items-center gap-10">
+                <a onclick="setView('home')" class="nav-link text-xs font-bold uppercase tracking-widest active" id="nav-home">Home</a>
+                <a onclick="setView('about')" class="nav-link text-xs font-bold uppercase tracking-widest" id="nav-about">About Me</a>
+                <a onclick="setView('home', 'projects')" class="nav-link text-xs font-bold uppercase tracking-widest">Projects</a>
+                <a onclick="setView('contact')" class="nav-link text-xs font-bold uppercase tracking-widest" id="nav-contact">Contact</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()" class="p-2 text-primary hover:text-red-500 transition-colors">
+                    <i data-lucide="sun" id="theme-icon"></i>
+                </button>
+                <button class="md:hidden text-primary"><i data-lucide="menu"></i></button>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <!-- Right Content -->
-        <main id="main-content" class="lg:w-1/2 pt-24 lg:py-24 px-8 md:px-12 lg:px-16">
-            <section id="about" class="mb-16 md:mb-24 section">
-                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-4 lg:hidden">About</h3>
-                <p class="text-secondary mb-4">
-                    A forward-thinking Robotics Engineering student with a passion for leveraging technology to solve real-world problems. My foundation in mathematics, physics, and computer science, combined with hands-on project experience, has cultivated a strong analytical and creative approach to engineering.
-                </p>
-                <p class="text-secondary">
-                    I am deeply interested in the convergence of AI and robotics, aiming to contribute to the development of intelligent, autonomous systems that drive innovation and efficiency.
-                </p>
+    <main class="max-w-6xl mx-auto pt-32 px-6 lg:px-12 relative z-10 pb-32">
+        
+        <!-- 1. HOME VIEW -->
+        <div id="home-view" class="view-transition">
+            <section class="mb-24 flex flex-col md:flex-row items-center gap-12">
+                <div class="relative w-48 h-48 lg:w-60 lg:h-60 flex-shrink-0">
+                    <div class="absolute inset-0 bg-red-500 rounded-3xl blur-3xl opacity-20"></div>
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Saicharan" class="relative z-10 w-full h-full rounded-3xl border-4 border-white dark:border-slate-800 bg-slate-900 shadow-2xl p-1 object-cover" alt="Saicharan">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-5xl lg:text-7xl font-black mb-4 text-primary">Saicharan Sangaru</h1>
+                    <p class="text-xl lg:text-2xl text-secondary font-medium max-w-2xl leading-relaxed">
+                        A <span class="text-red-500 font-bold">Vertical Integration</span> specialist bridging the gap between high-level intelligence and industrial-grade hardware.
+                    </p>
+                </div>
             </section>
 
-            <section id="experience" class="mb-16 md:mb-24 section">
-                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-6 lg:hidden">Experience</h3>
-                <div class="space-y-12">
-                    <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
-                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">Aug 2024 — Present</header>
-                        <div class="z-10 sm:col-span-6">
-                            <h3 class="font-medium leading-snug">
-                                <div><span class="font-bold">Repair Technician (Placement)</span> · Fixmytek</div>
-                            </h3>
-                            <p class="mt-2 text-sm leading-normal text-secondary">
-                                Spearheaded a full workshop relocation to optimize layout and significantly boost repair capacity. Engineered a novel diagnostic workflow, reducing misdiagnoses and improving customer turnaround times.
-                            </p>
-                        </div>
+            <section id="about-intro" class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <h3 class="text-3xl font-black text-primary">About Me</h3>
+                    <div class="h-px flex-1 bg-[var(--border-color)]"></div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div class="space-y-6">
+                        <p class="text-lg text-secondary leading-relaxed">
+                            Currently a Robotics Engineering student at UWE Bristol (Graduating 2026), I am driven by the desire to innovate. My work is defined by a deep-rooted curiosity in how the physical world interacts with digital logic.
+                        </p>
+                        <p class="text-lg text-secondary leading-relaxed">
+                            I specialize in ROS 2, C++, and industrial PLC systems. My goal is to build robots that aren't just intelligent, but robust enough for real-world industrial environments.
+                        </p>
+                        <button onclick="setView('about')" class="text-red-500 font-bold flex items-center gap-2 group">
+                            Read my full biography 
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
                     </div>
-                     <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
-                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">Sep 2023 — Aug 2024</header>
-                        <div class="z-10 sm:col-span-6">
-                            <h3 class="font-medium leading-snug">
-                                <div><span class="font-bold">Repair Technician (Part-Time)</span> · Fixmytek</div>
-                            </h3>
-                            <p class="mt-2 text-sm leading-normal text-secondary">
-                                Contributed to the goal of increased sustainability in tech repair to reduce E-Waste as a repair technician and refurbishment lead.
-                            </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="expert-card p-8 rounded-[2rem] relative z-10 cursor-default group">
+                            <i data-lucide="brain" class="text-red-500 mb-6 w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                            <h4 class="text-xl font-bold mb-3 text-primary">High-Level</h4>
+                            <p class="text-sm text-secondary leading-relaxed">ROS 2, VLM, SLAM, and Pathfinding algorithms.</p>
                         </div>
-                    </div>
-                     <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
-                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">Jan — May 2022</header>
-                        <div class="z-10 sm:col-span-6">
-                            <h3 class="font-medium leading-snug">
-                                <div><span class="font-bold">IT Support Engineer</span> · Manshiv Business Solutions Ltd</div>
-                            </h3>
-                            <p class="mt-2 text-sm leading-normal text-secondary">
-                                Provided comprehensive IT business solutions as a Google Workspace Administrator, desktop support engineer, and project coordinator.
-                            </p>
+                        <div class="expert-card p-8 rounded-[2rem] relative z-10 cursor-default group">
+                            <i data-lucide="cpu" class="text-red-500 mb-6 w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                            <h4 class="text-xl font-bold mb-3 text-primary">Low-Level</h4>
+                            <p class="text-sm text-secondary leading-relaxed">PLC Programming, Motherboard diagnostics, Wiring.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="projects" class="mb-16 md:mb-24 section">
-                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-6 lg:hidden">Projects</h3>
-                <div class="space-y-12">
-                    <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
-                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-secondary sm:col-span-2">2021</header>
-                        <div class="z-10 sm:col-span-6">
-                            <h3 class="font-medium leading-snug">
-                                <div><span class="font-bold">Autonomous Robotics Delivery System</span></div>
-                            </h3>
-                            <p class="mt-2 text-sm leading-normal text-secondary">
-                                Final year diploma project (awarded Distinction) involving the design and construction of a wheeled robot for automated package delivery within a defined area. The system utilized ultrasonic sensors for obstacle avoidance and line-following sensors for navigation.
-                            </p>
-                             <ul class="mt-2 flex flex-wrap">
-                                <li class="project-tag-wrapper mr-1.5 mt-2 relative">
-                                    <div class="flex items-center rounded-full bg-accent-secondary px-3 py-1 text-xs font-medium leading-5 text-gray-800">Arduino</div>
-                                    <div class="project-tag-tooltip">Used an Arduino Uno as the microcontroller to process sensor data and control motor drivers.</div>
-                                </li>
-                                <li class="project-tag-wrapper mr-1.5 mt-2 relative">
-                                    <div class="flex items-center rounded-full bg-accent-secondary px-3 py-1 text-xs font-medium leading-5 text-gray-800">C++</div>
-                                    <div class="project-tag-tooltip">Programmed the robot's logic in C++, implementing algorithms for navigation and obstacle avoidance.</div>
-                                </li>
-                                <li class="project-tag-wrapper mr-1.5 mt-2 relative">
-                                    <div class="flex items-center rounded-full bg-accent-secondary px-3 py-1 text-xs font-medium leading-5 text-gray-800">Sensors</div>
-                                    <div class="project-tag-tooltip">Integrated ultrasonic sensors for detecting obstacles and IR line-following sensors for path navigation.</div>
-                                </li>
-                                <li class="project-tag-wrapper mr-1.5 mt-2 relative">
-                                    <div class="flex items-center rounded-full bg-accent-secondary px-3 py-1 text-xs font-medium leading-5 text-gray-800">Motor Control</div>
-                                    <div class="project-tag-tooltip">Implemented PWM signals to control the speed and direction of DC motors via an H-bridge driver.</div>
-                                </li>
-                            </ul>
+            <!-- Projects Section -->
+            <section id="projects-section" class="mb-32">
+                <div class="flex justify-between items-end mb-10">
+                    <h3 class="text-3xl font-black text-primary">Featured Projects</h3>
+                    <div class="flex gap-2">
+                        <button onclick="scrollProjects(-1)" class="p-2 border border-[var(--border-color)] rounded-full hover:bg-red-500 hover:border-red-500 transition-all text-primary hover:text-white"><i data-lucide="arrow-left"></i></button>
+                        <button onclick="scrollProjects(1)" class="p-2 border border-[var(--border-color)] rounded-full hover:bg-red-500 hover:border-red-500 transition-all text-primary hover:text-white"><i data-lucide="arrow-right"></i></button>
+                    </div>
+                </div>
+                <div id="project-scroll" class="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x">
+                    <div onclick="openProject(0)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
+                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
+                            <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4 text-center">
+                            <h5 class="text-xl font-bold mb-1 text-primary">Hybrid Embodied AI</h5>
+                            <p class="text-sm text-secondary">VLM + LiDAR Perception</p>
+                        </div>
+                    </div>
+                    <div onclick="openProject(1)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
+                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4 text-center">
+                            <h5 class="text-xl font-bold mb-1 text-primary">Pandemic Response Robot</h5>
+                            <p class="text-sm text-secondary">Autonomous Medical Delivery</p>
+                        </div>
+                    </div>
+                    <div onclick="openProject(2)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
+                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
+                            <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4 text-center">
+                            <h5 class="text-xl font-bold mb-1 text-primary">PLC Industrial Automation</h5>
+                            <p class="text-sm text-secondary">Factory Efficiency Systems</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-
-            <section id="skills" class="section">
-                <h3 class="text-lg font-bold uppercase tracking-widest accent-primary mb-6 lg:hidden">Skills</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Python -->
-                    <div class="skill-item">
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Python</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Python</title><path d="M12.332 7.342c-.034.02-.06.05-.074.085l-2.203 4.341-.01.023c-.012.03-.01.063.006.093.018.028.04.05.07.06l4.28 2.181c.036.02.078.02.115 0l2.195-1.12c.033-.016.06-.04.075-.073.014-.033.015-.07 0-.104l-2.17-4.28c-.015-.03-.04-.055-.072-.07l-2.12-.862c-.035-.014-.075-.014-.11 0zm-1.127 6.422-2.12-1.082-1.127-2.195c-.015-.03-.015-.065 0-.097.015-.033.04-.06.072-.075l4.28-2.17c.036-.02.078-.02.115 0l.863.35c.033.013.06.035.075.065.015.03.018.065.005.097l-1.08 2.12zM21.82 17.525c.032.016.058.04.07.07.015.035.015.072 0 .107l-2.17 4.28c-.014.03-.04.055-.07.072l-4.28 2.17c-.035-.015-.075-.015-.11 0l-4.34-2.204c-.03-.015-.057-.038-.07-.068-.014-.03-.016-.065-.004-.097l2.203-4.34c.015-.03.04-.055.07-.072l2.12-1.082zm-6.42-1.126-1.125-2.195c-.015-.03-.015-.065 0-.097.015-.033.04-.06.072-.075l2.17-1.11c.035-.015.075-.015.11 0l4.34 2.203c.03.015.057.038.07.068.014.03.016.065.004.097l-2.204 4.34c-.015-.03-.04-.055-.07-.072l-2.12 1.082-1.11.565z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">4/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 80%;"></div></div>
-                            </div>
+            <!-- Technical Arsenal Section -->
+            <section id="skills-section" class="mb-32">
+                <h3 class="text-3xl font-black mb-12 text-center text-primary">Technical Arsenal</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 arsenal-card rounded-3xl text-center">
+                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Software</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">ROS 2</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">C++</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Python</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">SLAM</span>
                         </div>
                     </div>
-                     <!-- C/C++ -->
-                    <div class="skill-item">
-                         <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">C/C++</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>C++</title><path d="M15.185 0l8.769 12-8.769 12h-12.339l8.769-12-8.769-12zm-2.139 10.765l-5.32 7.391-3.691-5.127 3.691-5.127z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">3/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 60%;"></div></div>
-                            </div>
+                    <div class="p-8 arsenal-card rounded-3xl text-center">
+                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Electronics</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">PCB Design</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Diagnostics</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Soldering</span>
                         </div>
                     </div>
-                     <!-- Arduino -->
-                    <div class="skill-item">
-                         <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Arduino</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Arduino</title><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM8 10H5v4h3v-4zm5.5 2h-2v-2h2V8h-2V6h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2v2h2v2h-2v-2h-2v-2h2v-2zm3.5-2h3v4h-3v-4z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">4/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 80%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Raspberry Pi -->
-                    <div class="skill-item">
-                         <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Raspberry Pi</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Raspberry Pi</title><path d="M18.89 4.103c-1.397-.732-2.954-1.12-4.58-1.12-1.63 0-3.19.39-4.59 1.123C8.42 4.79 7.27 5.98 6.46 7.423c-.93 1.64-.79 3.5.38 5.01.69.91 1.57 1.69 2.58 2.28 1.11.65 2.35 1.03 3.64 1.07 1.28.04 2.52-.3 3.61-.95 1.01-.6 1.88-1.4 2.58-2.33 1.16-1.52 1.3-3.38.37-5.01-.81-1.44-1.96-2.63-3.24-3.32zm-6.84 12.35c-.99-.04-1.93-.32-2.76-.8-.83-.48-1.53-1.13-2.06-1.9-.38-.53-.63-1.15-.72-1.78-.09-.63-.03-1.27.18-1.87.21-.6.55-1.14.99-1.6.43-.46.95-.83 1.51-1.11.56-.28 1.16-.46 1.77-.52.61-.06 1.22.01 1.8.2.58.19 1.12.51 1.59.92.47.41.85.91 1.13 1.45.28.54.44 1.13.48 1.74.04.6-.04 1.2-.24 1.75-.2.55-.52 1.05-.93 1.47-.41.42-.9.76-1.44.99-.54.23-1.11.35-1.7.35z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">3/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 60%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Soldering & Hardware -->
-                    <div class="skill-item">
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Soldering & Hardware</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Soldering</title><path d="M22.7,1.3c-1.7-1.7-4.5-1.7-6.2,0L13.7,4.1l6.2,6.2l2.8-2.8C24.4,5.8,24.4,3,22.7,1.3z M12.3,5.5L2.1,15.7 c-0.8,0.8-1.2,1.8-1.2,2.8c0,1,0.4,2,1.2,2.8l1.4,1.4c0.8,0.8,1.8,1.2,2.8,1.2s2-0.4,2.8-1.2L18.5,11.7L12.3,5.5z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">5/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 100%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Hardware Diagnostics -->
-                    <div class="skill-item">
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Hardware Diagnostics</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Hardware Diagnostics</title><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6.1 6.1 9 1.6 4.5C.5 6.9.9 9.9 2.9 11.9c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.4-2.4c.4-.4.4-1.1 0-1.5z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">5/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 100%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Git & GitHub -->
-                    <div class="skill-item">
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Git & GitHub</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">4/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 80%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Fusion 360 -->
-                    <div class="skill-item">
-                         <div class="relative z-10">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <span class="font-bold">Fusion 360</span>
-                                    <svg class="skill-logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Autodesk</title><path d="M2.4,9.6h3.2l4,7.2V9.6H12v7.2h3.2l4-7.2V9.6h2.4v9.6h-3.2l-4-7.2v7.2H9.6V9.6H6.4l-4,7.2v-4.8H0V4.8h4.8L2.4,0h4.8 l2.4,4.8h4.8L12,0h4.8l-2.4,4.8H24v4.8h-2.4v4.8l4-7.2h-3.2V4.8h-2.4v7.2l-4,7.2h3.2v4.8h-4.8l2.4,4.8h-4.8l-2.4-4.8H9.6l-2.4,4.8 H2.4l2.4-4.8H0v-4.8h2.4V9.6z"/></svg>
-                                </div>
-                                <span class="text-secondary text-sm">3/5</span>
-                            </div>
-                            <div class="skill-progress-wrapper">
-                                <div class="progress-bar-bg"><div class="progress-bar bg-accent-primary" style="--skill-level: 60%;"></div></div>
-                            </div>
+                    <div class="p-8 arsenal-card rounded-3xl text-center">
+                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Industrial</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">Siemens PLC</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">BS 7671</span>
+                            <span class="px-3 py-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-primary">SolidWorks</span>
                         </div>
                     </div>
                 </div>
-                <footer class="mt-16 text-sm text-secondary text-center lg:text-left">
-                    <p>Coded in Visual Studio Code, built with Tailwind CSS, and deployed with Vercel. My portfolio is available at <a href="https://crossfire-13.github.io" target="_blank" class="font-medium text-primary hover:text-accent-primary">Crossfire-13.github.io</a>.</p>
-                </footer>
             </section>
-        </main>
-    </div>
+        </div>
+
+        <!-- 2. FULL ABOUT VIEW -->
+        <div id="about-view" class="view-transition hidden">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-16 text-center text-primary">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-2">Detailed Biography</h3>
+                    <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">Engineering my way forward.</h1>
+                    <div class="h-1 w-24 bg-red-500 rounded-full mx-auto"></div>
+                </header>
+
+                <div class="grid gap-16 text-lg text-secondary leading-relaxed">
+                    <!-- Profile Section -->
+                    <section class="space-y-6">
+                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
+                            <i data-lucide="user" class="text-red-500"></i> Profile
+                        </h4>
+                        <p>
+                            As a robotics engineering student, I am driven by the desire to <span class="text-primary font-medium">learn, create, and innovate</span>. My academic journey in mathematics, physics, and computer science has been critical in my understanding of the foundational concepts of robotics. My coursework has equipped me with analytical and problem-solving skills necessary to approach complex engineering problems with confidence and creativity.
+                        </p>
+                        <p>
+                            I am particularly interested in the integration of machine learning and artificial intelligence into the design and control of robotics systems. I have worked on projects ranging from designing mobile robots to programming autonomous systems. These projects have taught me valuable lessons in project management, time management, and communication. My goal is to make significant contributions to the development of intelligent robots that can solve real-world problems.
+                        </p>
+                    </section>
+
+                    <!-- Education Section -->
+                    <section class="space-y-8">
+                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
+                            <i data-lucide="graduation-cap" class="text-red-500"></i> Education & Qualifications
+                        </h4>
+                        <div class="space-y-12 border-l-2 border-[var(--border-color)] pl-10 ml-4">
+                            <div class="relative">
+                                <div class="absolute -left-[49px] top-2 w-4 h-4 rounded-full bg-red-500 shadow-[0_0_15px_#ef4444]"></div>
+                                <span class="text-sm font-bold text-red-500 uppercase tracking-widest">Sept 2022 — Present</span>
+                                <h5 class="text-2xl font-bold text-primary mt-1">BEng (Hons) Robotics Engineering</h5>
+                                <p class="text-secondary font-medium mb-4">University of the West of England (UWE), Bristol</p>
+                                <p class="italic text-secondary">Expected Graduation: 2026.</p>
+                                <div class="mt-4 p-4 bg-[var(--card-bg)] rounded-2xl border border-[var(--border-color)]">
+                                    <p class="text-sm font-bold uppercase tracking-wider text-secondary mb-2 text-primary">Key Coursework:</p>
+                                    <p class="text-base text-secondary">Programming for Engineers, Further Robotics Principles, Mathematics for Engineering Students.</p>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <div class="absolute -left-[49px] top-2 w-4 h-4 rounded-full bg-slate-700"></div>
+                                <span class="text-sm font-bold text-red-500 uppercase tracking-widest">2019 — 2021</span>
+                                <h5 class="text-2xl font-bold text-primary mt-1">BTEC Level 3 Extended Diploma in Engineering</h5>
+                                <p class="text-secondary font-medium mb-4">SCLP Samaj College</p>
+                                <p class="text-green-600 font-black tracking-wide uppercase text-sm">Awarded DISTINCTION.</p>
+                                <div class="mt-4 p-4 bg-[var(--card-bg)] rounded-2xl border border-[var(--border-color)]">
+                                    <p class="text-sm font-bold uppercase tracking-wider text-secondary mb-2 text-primary">Key Coursework & Focus:</p>
+                                    <p class="text-base text-secondary">Three Phase Motors and Drives (Distinction), Further Mathematics for Engineering Technicians (Distinction).</p>
+                                    <p class="mt-3 text-base text-secondary">Final year project focused on an <span class="text-red-500 font-medium">Autonomous Robotics Delivery System</span>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Work Experience Section -->
+                    <section class="space-y-8">
+                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
+                            <i data-lucide="briefcase" class="text-red-500"></i> Work Experience
+                        </h4>
+                        <div class="space-y-12">
+                            <div class="group">
+                                <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-2">
+                                    <h5 class="text-2xl font-bold text-primary group-hover:text-red-500 transition-colors">Repair Technician (Full-Time Placement)</h5>
+                                    <div class="text-right">
+                                        <p class="text-sm font-bold text-primary">Fixmytek, Bristol</p>
+                                        <p class="text-xs font-bold text-secondary uppercase tracking-widest">Aug 2024 — Aug 2025</p>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 text-base list-none">
+                                    <li class="flex gap-3 text-secondary"><i data-lucide="check-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> <span>Led the planning and execution of a workshop relocation, boosting repair capacity and creating a dedicated secure data erasure zone.</span></li>
+                                    <li class="flex gap-3 text-secondary"><i data-lucide="check-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> <span>Developed and implemented a new diagnostic workflow using an HDMI tester to accurately isolate faults.</span></li>
+                                    <li class="flex gap-3 text-secondary"><i data-lucide="check-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> <span>Managed batch refurbishment projects from assessment to final quality control.</span></li>
+                                </ul>
+                            </div>
+
+                            <div class="group">
+                                <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-2 text-primary font-bold">
+                                    <h5 class="text-2xl">Repair Technician (Part-Time)</h5>
+                                    <p class="text-xs uppercase">Sept 2023 — Aug 2024</p>
+                                </div>
+                                <p class="text-base text-secondary italic">Tech repair company focused on sustainability. Role: Repair Technician, Refurb Lead.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Technical Skills Breakdown -->
+                    <section class="space-y-8">
+                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
+                            <i data-lucide="wrench" class="text-red-500"></i> Detailed Technical Skills
+                        </h4>
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div class="p-6 arsenal-card rounded-3xl">
+                                <h5 class="font-bold text-primary mb-3 uppercase tracking-widest text-xs">Robotics & Automation</h5>
+                                <p class="text-sm text-secondary">Designing task robots, Python automation, Arduino, Raspberry PI.</p>
+                            </div>
+                            <div class="p-6 arsenal-card rounded-3xl">
+                                <h5 class="font-bold text-primary mb-3 uppercase tracking-widest text-xs">Electronics & Hardware</h5>
+                                <p class="text-sm text-secondary">Soldering, Multimeters, Oscilloscopes, ESD safety protocols.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. DETAIL VIEW -->
+        <div id="detail-view" class="view-transition hidden">
+            <button onclick="setView('home')" class="mb-12 flex items-center gap-2 text-secondary hover:text-red-500 group font-bold">
+                <i data-lucide="arrow-left" class="group-hover:-translate-x-1 transition-transform"></i>
+                <span class="font-bold uppercase tracking-widest text-xs">Back to Overview</span>
+            </button>
+            <div id="detail-content"></div>
+        </div>
+
+        <!-- 4. CONTACT VIEW -->
+        <div id="contact-view" class="view-transition hidden">
+            <div class="max-w-3xl mx-auto text-center py-20">
+                <h3 class="text-5xl lg:text-7xl font-black italic mb-6 text-primary">Thinking of hiring?</h3>
+                <p class="text-xl text-secondary mb-12">I am currently open to Robotics placements for 2026. Enter your email to receive my full CV instantly.</p>
+
+                <div class="p-12 arsenal-card rounded-[3rem] shadow-2xl backdrop-blur-md">
+                    <div id="email-capture-container" class="space-y-6">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <input type="email" id="contact-email" placeholder="recruiter@company.com" class="flex-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-all text-primary">
+                            <button onclick="submitEmail()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl shadow-red-500/20 active:scale-95">Send CV</button>
+                        </div>
+                    </div>
+                    <div id="email-status" class="mt-8 text-sm font-medium hidden"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
     <script>
-        // Theme switcher
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlEl = document.documentElement;
+        const projects = [
+            {
+                title: "Hybrid Embodied AI",
+                subtitle: "Vision-Language Models + Solid-State LiDAR",
+                image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=1200",
+                description: "Integrating high-level Vision-Language Models (VLMs) with hardware-level Solid-State LiDAR to achieve precision manipulation and advanced spatial reasoning.",
+                techBriefs: [
+                    { name: "ROS 2", brief: "Primary middleware for node communication." },
+                    { name: "VLM", brief: "Spatial reasoning based on natural language." },
+                    { name: "LiDAR", brief: "Solid-state density mapping." }
+                ],
+                year: "2026"
+            },
+            {
+                title: "Pandemic Response Robot",
+                subtitle: "Autonomous Delivery System",
+                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200",
+                description: "Contactless delivery robot designed for COVID-19 hospital zones. Capable of reading room numbers and floor markers.",
+                techBriefs: [
+                    { name: "Arduino", brief: "Low-level actuator control." },
+                    { name: "Pathfinding", brief: "Dynamic route optimization." },
+                    { name: "Sensors", brief: "Ultrasonic and infrared integration." }
+                ],
+                year: "2021"
+            },
+            {
+                title: "PLC Automation",
+                subtitle: "Industrial Factory Efficiency",
+                image: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=1200",
+                description: "Industrial-grade control systems using Siemens S7-1200 logic. Adheres to strict BS 7671 electrical standards.",
+                techBriefs: [
+                    { name: "Siemens PLC", brief: "Ladder logic for factory line automation." },
+                    { name: "BS 7671", brief: "Electrical wiring safety compliance." },
+                    { name: "Diagnostics", brief: "Fault finding using signal analysis tools." }
+                ],
+                year: "2023"
+            }
+        ];
 
-        function applyTheme(theme) {
-            htmlEl.classList.remove('light', 'dark');
-            htmlEl.classList.add(theme);
-            localStorage.setItem('theme', theme);
+        function checkAutoTheme() {
+            const hour = new Date().getHours();
+            const isNight = hour >= 18 || hour < 6;
+            const theme = isNight ? 'dark' : 'light';
+            document.documentElement.className = theme;
+            updateThemeIcon(!isNight);
         }
 
-        const initialTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(initialTheme);
+        function setView(view, anchor = null) {
+            const views = ['home-view', 'about-view', 'detail-view', 'contact-view'];
+            views.forEach(v => document.getElementById(v).classList.add('hidden'));
+            const activeView = document.getElementById(`${view}-view`);
+            activeView.classList.remove('hidden');
+            activeView.style.opacity = 0;
+            setTimeout(() => activeView.style.opacity = 1, 10);
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const navItem = document.getElementById(`nav-${view}`);
+            if(navItem) navItem.classList.add('active');
+            window.scrollTo(0, 0);
+            if(anchor) {
+                setTimeout(() => {
+                    const el = document.getElementById(`${anchor}-section`);
+                    if(el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            }
+        }
 
-        themeToggle.addEventListener('click', () => {
-            const newTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
-            applyTheme(newTheme);
-        });
+        function openProject(index) {
+            const p = projects[index];
+            document.getElementById('detail-content').innerHTML = `
+                <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Completion</h3>
+                <h1 class="text-6xl font-black mb-8 leading-tight text-primary">${p.title}</h1>
+                <img src="${p.image}" class="w-full rounded-[3rem] mb-12 shadow-2xl border border-[var(--border-color)]">
+                <div class="grid md:grid-cols-2 gap-12 text-secondary">
+                    <div><h4 class="text-xl font-bold mb-4 text-primary">Overview</h4><p class="text-lg leading-relaxed">${p.description}</p></div>
+                    <div><h4 class="text-xl font-bold mb-4 text-red-500">Technology Briefs</h4>
+                    <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary">${t.name}</p><p class="text-sm">${t.brief}</p></div>`).join('')}</div></div>
+                </div>
+            `;
+            setView('detail');
+        }
 
-        // Scroll animations and Nav Highlighting
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    navLinks.forEach(link => {
-                        if (link.getAttribute('href').substring(1) === entry.target.id) {
-                            link.classList.add('active');
-                        } else {
-                            link.classList.remove('active');
-                        }
-                    });
-                }
-            });
-        }, { 
-            threshold: 0.3 // Trigger when 30% of the section is visible
-        });
+        function scrollProjects(dir) {
+            document.getElementById('project-scroll').scrollBy({ left: dir * 350, behavior: 'smooth' });
+        }
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        let submissionCount = parseInt(localStorage.getItem('ss_sub_count') || '0');
+        function submitEmail() {
+            const email = document.getElementById('contact-email');
+            const status = document.getElementById('email-status');
+            const container = document.getElementById('email-capture-container');
+            if (submissionCount >= 5) {
+                status.innerText = "IP Limit reached (5 max). Please contact me on LinkedIn.";
+                status.className = "mt-4 text-sm font-medium text-red-500 p-4 bg-red-500/10 rounded-xl";
+                status.classList.remove('hidden');
+                container.classList.add('opacity-50', 'pointer-events-none');
+                return;
+            }
+            if(!email.value.includes('@')) return;
+            submissionCount++;
+            localStorage.setItem('ss_sub_count', submissionCount);
+            status.innerText = "Success! Request sent.";
+            status.className = "mt-4 text-sm font-medium text-green-600 p-4 bg-green-400/10 rounded-xl";
+            status.classList.remove('hidden');
+            email.value = "";
+        }
 
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            html.className = isDark ? 'light' : 'dark';
+            updateThemeIcon(!isDark);
+        }
+
+        function updateThemeIcon(isSun) {
+            document.getElementById('theme-icon').innerHTML = isSun 
+                ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+        }
+
+        function scheduleStar() {
+            setTimeout(() => {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 120 - 20}vw`;
+                star.style.top = `-100px`;
+                const dur = 1.5 + Math.random() * 1.5;
+                star.style.animation = `shooting ${dur}s linear forwards`;
+                document.getElementById('star-container').appendChild(star);
+                setTimeout(() => star.remove(), dur * 1000);
+                scheduleStar();
+            }, 3000 + Math.random() * 1000);
+        }
+
+        window.onload = () => { lucide.createIcons(); checkAutoTheme(); scheduleStar(); };
     </script>
 </body>
 </html>
-

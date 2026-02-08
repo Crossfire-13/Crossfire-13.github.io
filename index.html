@@ -19,7 +19,7 @@
 
         /* ===== Themes ===== */
         .light {
-            --bg-color: #fcf8f2; 
+            --bg-color: #fcf8f2; /* Android 12 Sandstone */
             --text-primary: #3d342d; 
             --text-secondary: #5d5045; 
             --accent-primary: #b0704d; 
@@ -162,14 +162,15 @@
         
         <div id="home-view" class="view-transition">
             <section class="mb-24 flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
-                <div class="relative w-48 h-48 lg:w-60 lg:h-60 flex-shrink-0">
+                <!-- SWAP PROFILE PIC HERE -->
+                <div class="relative w-48 h-48 lg:w-60 lg:h-60 flex-shrink-0 mt-4">
                     <div class="absolute inset-0 bg-red-500 rounded-3xl blur-3xl opacity-20"></div>
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Saicharan" class="relative z-10 w-full h-full rounded-3xl border-4 border-white dark:border-slate-800 bg-slate-900 shadow-2xl p-1 object-cover" alt="Saicharan">
                 </div>
                 <div>
                     <h1 class="text-5xl lg:text-7xl font-black mb-4 text-primary">Saicharan Sangaru</h1>
                     <p class="text-xl lg:text-2xl text-secondary font-medium max-w-2xl leading-relaxed">
-                        Robotics Engineer bridging the gap between <span class="text-red-500 font-bold">Intelligent Control</span> and physical hardware.
+                        A <span class="text-red-500 font-bold">Vertical Integration</span> specialist bridging the gap between high-level intelligence and industrial-grade hardware.
                     </p>
                 </div>
             </section>
@@ -212,6 +213,33 @@
                     <div id="project-list-container" class="flex gap-6"></div>
                 </div>
             </section>
+
+            <section id="skills-section" class="mb-32">
+                <h3 class="text-3xl font-black mb-12 text-center text-primary">Technical Arsenal</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
+                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Software</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">ROS 2</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">C++</span>
+                        </div>
+                    </div>
+                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
+                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Electronics</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">PCB Design</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Diagnostics</span>
+                        </div>
+                    </div>
+                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
+                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Control Systems</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">PID Tuning</span>
+                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">SolidWorks</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <div id="detail-view" class="view-transition hidden">
@@ -224,17 +252,15 @@
 
         <div id="about-view" class="view-transition hidden text-secondary leading-relaxed">
             <h1 class="text-5xl font-black mb-12 text-primary">Detailed Biography</h1>
-            <p>Robotics student at UWE Bristol specializing in the synergy between software and hardware.</p>
+            <p>Robotics student at UWE Bristol specializing in the synergy between software intelligence and industrial-grade hardware reliability.</p>
+            <!-- Content here follows the "Engineering my way forward" detailed biography structure -->
         </div>
 
         <div id="contact-view" class="view-transition hidden text-center">
             <h3 class="text-5xl font-black italic mb-6 text-primary">Thinking of hiring?</h3>
             <div class="p-12 arsenal-card rounded-[3rem] max-w-2xl mx-auto backdrop-blur-md shadow-2xl">
-                <p class="text-secondary mb-8 font-medium italic">All inquiries are reviewed personally. Drop your email to request my CV or start a conversation.</p>
-                <div id="email-capture-container">
-                    <input type="email" id="contact-email" placeholder="recruiter@company.com" class="w-full p-4 rounded-2xl bg-[var(--accent-secondary)] border border-[var(--border-color)] text-primary outline-none focus:border-red-500 mb-4 font-medium">
-                    <button id="submit-email-btn" onclick="submitEmail()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl shadow-red-500/20 active:scale-95">Send Request</button>
-                </div>
+                <input type="email" id="contact-email" placeholder="recruiter@company.com" class="w-full p-4 rounded-2xl bg-[var(--accent-secondary)] border border-[var(--border-color)] text-primary outline-none focus:border-red-500 mb-4 font-medium">
+                <button id="submit-email-btn" onclick="submitEmail()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl shadow-red-500/20 active:scale-95">Send CV</button>
                 <div id="email-status" class="mt-8 text-sm font-medium hidden"></div>
             </div>
         </div>
@@ -243,33 +269,47 @@
     <script>
         const projects = [
             {
-                image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=800",
-                githubUrl: "",
-                title: "Hybrid Embodied AI",
-                subtitle: "VLM + Solid-State LiDAR Perception",
-                description: "Advanced robotics intelligence research integrating Vision-Language Models with high-fidelity LiDAR sensor fusion for operating in unstructured environments.",
-                techBriefs: [{name:"ROS 2", brief:"Middleware for node synchronization."}, {name:"VLM", brief:"AI logic for environment interpretation."}],
-                year: "2026"
+                // M.A.V.I.S PROJECT
+                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=800", // Mavis Thumbnail
+                githubUrl: "", // Add Link when ready
+
+                title: "M.A.V.I.S.",
+                subtitle: "Mobile Autonomous Vision & Intelligence System",
+                description: "A compact autonomous mobile manipulator designed to bridge the 'Reasoning Gap' between high-level semantic language and low-level motor control. Utilizing a 'Lobotomy' architecture, it offloads heavy VLM processing to an offboard node while maintaining real-time safety via an onboard STM32 'Spine'.",
+                techBriefs: [
+                    { name: "Hybrid Architecture", brief: "Offboard Moondream VLM for semantic reasoning paired with onboard FreeRTOS loops." },
+                    { name: "Semantic Servoing", brief: "Real-time error compensation using computer vision to perform precise manipulation with budget hardware." },
+                    { name: "Embedded Control", brief: "Implemented micro-ROS on STM32 Blackpill for high-frequency locomotion and sensor fusion." }
+                ],
+                year: "2026",
+                isMavis: true
             },
             {
-                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800",
+                // PANDEMIC RESPONSE
+                image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=800",
                 githubUrl: "",
+
                 title: "Pandemic Response Robot",
-                subtitle: "Autonomous Medical Logistics",
-                description: "Contactless delivery robot designed for hospital high-risk zones, utilizing optical recognition for room identification.",
-                techBriefs: [{name:"Pathfinding", brief:"A* navigation logic."}, {name:"Hardware", brief:"Sensor calibration."}],
+                subtitle: "Autonomous Hospital Logistics",
+                description: "Developed during the COVID-19 pandemic to transport medical supplies safely. Features custom symbol recognition to identify delivery zones autonomously.",
+                techBriefs: [
+                    { name: "Pathfinding", brief: "Dynamic route optimization for efficient transit." },
+                    { name: "Hardware", brief: "Custom sensor arrays for robust room identification." }
+                ],
                 year: "2021"
             },
             {
-                image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=800",
+                // KEY GRABBER
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800", // Key Grabber Thumbnail
                 githubUrl: "https://github.com/Crossfire-13/Key_Grabber_Project",
+
                 title: "Key Grabber (Robot Arm)",
-                subtitle: "Precision Manipulator Interface",
-                description: "Developing high-performance manipulator software using C++ for physical key-turning tasks. The architecture focuses on multi-axis control and real-time positional stability.",
+                subtitle: "Precision Manipulator Prototyping",
+                description: "Developing high-performance manipulator software using C++ for physical key-turning tasks. Architecture focuses on low-latency response and positional stability.",
                 techBriefs: [
-                    {name:"Real-Time ISRs", brief:"Implementing high-frequency interrupt service routines for multi-axis PWM generation."}, 
-                    {name:"C++ Templates", brief:"Utilizing modern C++ to create zero-overhead Hardware Abstraction Layers."},
-                    {name:"PID Profiling", brief:"Trapezoidal velocity profiling for mechanical insertion precision."}
+                    { name: "Real-Time ISRs", brief: "Multi-axis interrupt service routines for jitter-free PWM generation." },
+                    { name: "Memory-Safe HAL", brief: "Modern C++ template-based Hardware Abstraction Layer for zero-overhead performance." },
+                    { name: "PID Profiling", brief: "Trapezoidal velocity profiling integrated with PID loops for mechanical insertion precision." }
                 ],
                 year: "2025",
                 isRobotArm: true, 
@@ -278,14 +318,16 @@
                 protoChanges: "https://github.com/Crossfire-13/Key_Grabber_Project/pull/1/changes/a28ec1ad932482640378bae14e67479f83e5a3d2"
             },
             {
+                // SLOT MACHINE
                 image: "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?q=80&w=800",
                 githubUrl: "https://github.com/Crossfire-13/Slot_machine",
+
                 title: "Interactive Slot Machine",
-                subtitle: "Probability & Animation Logic Engine",
-                description: "A cartoon-style 4-reel slot machine simulation featuring complex state logic, spinning fruit animations, and a Power Ball multiplier system.",
+                subtitle: "Logic & Animation Logic Engine",
+                description: "A cartoon-style 4-reel slot machine simulation featuring complex state logic, spinning animations, and a Power Ball multiplier system.",
                 techBriefs: [
-                    {name:"Spin Logic", brief:"CSS-driven rotation and blur logic for immersive simulation."}, 
-                    {name:"Probabilistic Payout", brief:"Calculation engine handling multi-lane win conditions and multipliers."}
+                    { name: "Weighted Probabilities", brief: "Outcome engine calculated before visual commitment." },
+                    { name: "Payout Logic", brief: "Implemented tiered payouts: 3-match (2x), 2-match (1.25x) with Power Ball integration." }
                 ],
                 year: "2024",
                 isGame: true
@@ -348,7 +390,7 @@
             let mainContent = `
                 <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12 text-primary">
                     <div class="flex-1">
-                        <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Engineering Project</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Project</h3>
                         <h1 class="text-6xl font-black mb-4 leading-tight">${p.title}</h1>
                         <p class="text-2xl text-secondary font-medium italic">${p.subtitle}</p>
                     </div>
@@ -370,20 +412,25 @@
                                 <div class="text-lg font-bold">CREDITS: <span id="balance" class="text-yellow-400">$100.00</span></div>
                                 <input type="number" id="bet" value="10" class="w-24 p-2 rounded-lg bg-slate-800 text-white border border-yellow-500 text-center font-bold outline-none">
                             </div>
-                            <button id="spinBtn" onclick="playSlotMachine()" class="slot-btn bg-blue-600 hover:bg-blue-700 text-white font-black py-4 w-full rounded-xl shadow-xl">SPIN TO WIN</button>
+                            <button id="spinBtn" onclick="playSlotMachine()" class="slot-btn bg-blue-600 hover:bg-blue-700 text-white font-black py-4 w-full rounded-xl shadow-xl transition-all">SPIN TO WIN</button>
                         </div>
                     </div>
                 `;
             } else if (p.isRobotArm) {
                 mainContent += `
-                    <div class="grid md:grid-cols-2 gap-12 mb-12 items-start">
-                        <div class="space-y-6">
-                            <h4 class="text-xl font-bold mb-4 text-primary underline decoration-red-500 decoration-2 underline-offset-8">Project Overview</h4>
-                            <p class="text-lg text-secondary leading-relaxed font-medium">${p.description}</p>
-                        </div>
+                    <div class="grid md:grid-cols-2 gap-12 mb-12 items-center">
                         <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[var(--border-color)] bg-slate-800 flex items-center justify-center relative">
                             <img src="${p.protoImg}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800'">
                             <div class="absolute bottom-6 left-6 bg-red-500 text-white text-[10px] font-black uppercase px-2 py-1 rounded">${p.protoDate} Prototype</div>
+                        </div>
+                        <div class="space-y-6">
+                            <h4 class="text-xl font-bold text-red-500 uppercase tracking-widest text-xs">Development Overview</h4>
+                            <p class="text-sm text-secondary font-medium leading-relaxed italic border-l-2 border-red-500 pl-4">
+                                "Phase Dec 2025: Achieving multi-axis calibration. Currently optimizing the C++ HAL layer to ensure deterministic latency across high-torque servo nodes."
+                            </p>
+                            <a href="${p.protoChanges}" target="_blank" class="inline-flex items-center gap-2 text-red-500 font-bold hover:underline">
+                                <i data-lucide="external-link"></i> View Prototyping on Git
+                            </a>
                         </div>
                     </div>
                 `;
@@ -391,39 +438,20 @@
                 mainContent += `<img src="${p.image}" class="w-full rounded-[3rem] mb-12 shadow-2xl border border-[var(--border-color)]">`;
             }
 
-            if (!p.isRobotArm) {
-                mainContent += `
-                    <div class="grid md:grid-cols-2 gap-12 text-secondary">
-                        <div><h4 class="text-xl font-bold mb-4 text-primary underline decoration-red-500 decoration-2 underline-offset-8">Project Overview</h4><p class="text-lg leading-relaxed font-medium">${p.description}</p></div>
-                        <div><h4 class="text-xl font-bold mb-4 text-red-500 underline decoration-primary decoration-2 underline-offset-8">Technical Breakdown</h4>
-                        <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary tracking-widest">${t.name}</p><p class="text-sm font-medium leading-relaxed">${t.brief}</p></div>`).join('')}</div></div>
-                    </div>
-                `;
-            } else {
-                mainContent += `
-                    <div class="grid md:grid-cols-2 gap-12 text-secondary mt-12">
-                        <div class="space-y-4">
-                            <h4 class="text-xl font-bold text-red-500 uppercase tracking-widest text-xs">Internal Development Logs</h4>
-                            <p class="text-sm text-secondary font-medium leading-relaxed italic border-l-2 border-red-500 pl-4">
-                                "During development phase (${p.protoDate}): Investigation into magnetic encoder resolution for granular key rotation control."
-                            </p>
-                            <a href="${p.protoChanges}" target="_blank" class="inline-flex items-center gap-2 text-red-500 font-bold hover:underline">
-                                <i data-lucide="external-link"></i> View Git Proto Changes
-                            </a>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold mb-4 text-red-500 underline decoration-primary decoration-2 underline-offset-8">Technical Breakdown</h4>
-                            <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary tracking-widest">${t.name}</p><p class="text-sm font-medium leading-relaxed">${t.brief}</p></div>`).join('')}</div>
-                        </div>
-                    </div>
-                `;
-            }
+            mainContent += `
+                <div class="grid md:grid-cols-2 gap-12 text-secondary">
+                    <div><h4 class="text-xl font-bold mb-4 text-primary underline decoration-red-500 decoration-2 underline-offset-8">Project Overview</h4><p class="text-lg leading-relaxed font-medium">${p.description}</p></div>
+                    <div><h4 class="text-xl font-bold mb-4 text-red-500 underline decoration-primary decoration-2 underline-offset-8">Technical Breakdown</h4>
+                    <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary tracking-widest">${t.name}</p><p class="text-sm font-medium leading-relaxed">${t.brief}</p></div>`).join('')}</div></div>
+                </div>
+            `;
 
             document.getElementById('detail-content').innerHTML = mainContent;
             lucide.createIcons();
             setView('detail');
         }
 
+        // --- SLOT MACHINE ENGINE ---
         let slotBalance = 100;
         function playSlotMachine() {
             const betInput = document.getElementById("bet");
@@ -473,40 +501,27 @@
             }, 1200);
         }
 
-        let submissionCount = parseInt(localStorage.getItem('ss_sub_count') || '0');
+        function scrollProjects(dir) { document.getElementById('project-scroll').scrollBy({ left: dir * 350, behavior: 'smooth' }); }
+        
         async function submitEmail() {
             const emailInput = document.getElementById('contact-email');
             const status = document.getElementById('email-status');
             const btn = document.getElementById('submit-email-btn');
             
             if(!emailInput.value.includes('@')) return;
-            if (submissionCount >= 5) {
-                status.innerText = "IP Limit reached (5 max). Please contact me on LinkedIn.";
-                status.className = "mt-4 text-sm font-medium text-red-500 p-4 bg-red-500/10 rounded-xl";
-                status.classList.remove('hidden');
-                return;
-            }
-
             btn.innerText = "Processing...";
             btn.disabled = true;
 
             try {
-                // Point to your backend endpoint (invisible to inspector as it's a relative path)
-                const response = await fetch('/api/send-cv', {
+                // Point to your backend endpoint (invisible to inspector)
+                await fetch('/api/send-cv', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: emailInput.value })
                 });
-
-                if (response.ok) {
-                    submissionCount++;
-                    localStorage.setItem('ss_sub_count', submissionCount);
-                    status.innerText = "Your request has been forwarded. I will review it shortly!";
-                    status.className = "mt-4 text-sm font-medium text-green-500 p-4 bg-green-500/10 rounded-xl";
-                    emailInput.value = "";
-                } else {
-                    throw new Error();
-                }
+                status.innerText = "Request received! I will review your profile and reach out shortly.";
+                status.className = "mt-4 text-sm font-medium text-green-500 p-4 bg-green-500/10 rounded-xl";
+                emailInput.value = "";
             } catch (err) {
                 status.innerText = "Request received! (Dev Mode: Local simulation active)";
                 status.className = "mt-4 text-sm font-medium text-green-500 p-4 bg-green-500/10 rounded-xl";
@@ -526,13 +541,16 @@
 
         function scheduleStar() {
             setTimeout(() => {
-                const star = document.createElement('div'); star.className = 'star';
-                star.style.left = `${Math.random() * 120 - 20}vw`; star.style.top = `-100px`;
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 120 - 20}vw`;
+                star.style.top = `-100px`;
                 const dur = 1.5 + Math.random() * 1.5;
                 star.style.animation = `shooting ${dur}s linear forwards`;
                 const container = document.getElementById('star-container');
                 if(container) container.appendChild(star);
-                setTimeout(() => star.remove(), dur * 1000); scheduleStar();
+                setTimeout(() => star.remove(), dur * 1000);
+                scheduleStar();
             }, 3000 + Math.random() * 1000);
         }
 

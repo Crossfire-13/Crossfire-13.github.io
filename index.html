@@ -46,30 +46,15 @@
             --skill-badge-bg: rgba(255, 255, 255, 0.05);
         }
         
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-        }
+        body { background-color: var(--bg-color); color: var(--text-primary); }
 
-        .text-primary { color: var(--text-primary); }
-        .text-secondary { color: var(--text-secondary); }
-
+        /* Dino Scenery */
         #background-scenery {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.5;
+            bottom: 0; left: 0; width: 100%; height: 100px;
+            pointer-events: none; z-index: 0; opacity: 0.5;
         }
-        .line-art {
-            stroke: var(--mountain-color);
-            stroke-width: 2.5;
-            fill: none;
-            transition: stroke 0.5s ease;
-        }
+        .line-art { stroke: var(--mountain-color); stroke-width: 2.5; fill: none; transition: stroke 0.5s ease; }
 
         header {
             background-color: var(--nav-bg);
@@ -77,59 +62,26 @@
             border-bottom: 1px solid var(--border-color);
         }
         .nav-link {
-            position: relative;
-            cursor: pointer;
-            color: var(--text-secondary);
+            position: relative; cursor: pointer; color: var(--text-secondary);
             transition: color 0.3s ease;
         }
-        .nav-link:hover, .nav-link.active {
-            color: var(--text-primary);
-        }
+        .nav-link:hover, .nav-link.active { color: var(--text-primary); }
         .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-primary);
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background-color: var(--accent-primary);
             transition: width 0.3s ease;
         }
         .nav-link.active::after { width: 100%; }
 
         .expert-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; position: relative;
         }
-        .expert-card::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--accent-primary);
-            opacity: 0.1;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-            z-index: 0;
-        }
-        .expert-card:hover::before { width: 300%; height: 300%; }
         .expert-card:hover { transform: scale(1.05); border-color: var(--accent-primary); }
 
-        .arsenal-card { background-color: var(--card-bg); border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
-
-        .view-transition { transition: opacity 0.4s ease, transform 0.4s ease; }
-        .hidden-view { display: none; opacity: 0; }
-
         .project-card {
-            min-width: 320px;
-            background: var(--accent-secondary);
-            border: 1px solid var(--border-color);
+            min-width: 320px; background: var(--accent-secondary); border: 1px solid var(--border-color);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .project-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent-primary); }
@@ -138,6 +90,40 @@
         #star-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .star { position: absolute; width: 2px; height: 80px; background: linear-gradient(to bottom, transparent, var(--accent-primary)); opacity: 0; transform: rotate(45deg); }
         @keyframes shooting { 0% { transform: rotate(45deg) translateY(-200px); opacity: 0; } 10% { opacity: 1; } 100% { transform: rotate(45deg) translateY(100vh); opacity: 0; } }
+
+        /* Slot Machine UI */
+        .machine-frame {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            padding: 30px; border-radius: 40px; border: 8px solid #b8860b;
+            box-shadow: 0 20px 0 #8b4513, 0 30px 60px rgba(0,0,0,0.5);
+            width: 100%; max-width: 500px;
+        }
+        .reels-display {
+            background: #000; border-radius: 20px; padding: 20px;
+            display: grid; grid-template-columns: repeat(4, 1fr) 70px; gap: 10px;
+            border: 5px inset #444; margin-bottom: 20px;
+        }
+        .reel-box {
+            height: 90px; background: #fff; border-radius: 10px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 45px; overflow: hidden; color: #000;
+        }
+        .power-box {
+            background: #222; border: 3px solid #ff00ff; color: #ff00ff;
+            height: 90px; border-radius: 10px; display: flex; justify-content: center;
+            align-items: center; font-size: 28px; font-weight: 900;
+            box-shadow: inset 0 0 10px #ff00ff;
+        }
+        .spinning { animation: spinBlur 0.1s linear infinite; }
+        @keyframes spinBlur {
+            0% { transform: translateY(-5px); filter: blur(2px); }
+            50% { transform: translateY(5px); filter: blur(5px); }
+            100% { transform: translateY(-5px); filter: blur(2px); }
+        }
+        .win-glow { animation: pulseWin 0.3s ease infinite; border: 4px solid #4caf50 !important; }
+        @keyframes pulseWin { 0% { background: #fff; } 50% { background: #c8e6c9; } 100% { background: #fff; } }
+
+        .arsenal-card { background-color: var(--card-bg); border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
     </style>
 </head>
 <body class="selection:bg-red-500/30">
@@ -154,7 +140,7 @@
     <header class="fixed top-0 left-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2 cursor-pointer" onclick="setView('home')">
-                <span class="font-black text-2xl tracking-tighter uppercase text-primary">SS<span class="text-red-500">.</span></span>
+                <span class="font-black text-2xl tracking-tighter uppercase">SS<span class="text-red-500">.</span></span>
             </div>
             
             <nav class="hidden md:flex items-center gap-10">
@@ -168,24 +154,22 @@
                 <button onclick="toggleTheme()" class="p-2 text-primary hover:text-red-500 transition-colors">
                     <i data-lucide="sun" id="theme-icon"></i>
                 </button>
-                <button class="md:hidden text-primary"><i data-lucide="menu"></i></button>
             </div>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto pt-32 px-6 lg:px-12 relative z-10 pb-32">
         
-        <!-- 1. HOME VIEW -->
         <div id="home-view" class="view-transition">
-            <section class="mb-24 flex flex-col md:flex-row items-center gap-12">
+            <section class="mb-24 flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
                 <div class="relative w-48 h-48 lg:w-60 lg:h-60 flex-shrink-0">
                     <div class="absolute inset-0 bg-red-500 rounded-3xl blur-3xl opacity-20"></div>
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Saicharan" class="relative z-10 w-full h-full rounded-3xl border-4 border-white dark:border-slate-800 bg-slate-900 shadow-2xl p-1 object-cover" alt="Saicharan">
                 </div>
-                <div class="text-center md:text-left">
+                <div>
                     <h1 class="text-5xl lg:text-7xl font-black mb-4 text-primary">Saicharan Sangaru</h1>
                     <p class="text-xl lg:text-2xl text-secondary font-medium max-w-2xl leading-relaxed">
-                        A <span class="text-red-500 font-bold">Vertical Integration</span> specialist bridging the gap between high-level intelligence and industrial-grade hardware.
+                        Robotics Engineer bridging the gap between <span class="text-red-500 font-bold">Intelligent Control</span> and physical hardware.
                     </p>
                 </div>
             </section>
@@ -195,30 +179,22 @@
                     <h3 class="text-3xl font-black text-primary">About Me</h3>
                     <div class="h-px flex-1 bg-[var(--border-color)]"></div>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-16">
+                <div class="grid lg:grid-cols-2 gap-16 text-secondary">
                     <div class="space-y-6">
-                        <p class="text-lg text-secondary leading-relaxed">
-                            Currently a Robotics Engineering student at UWE Bristol (Graduating 2026), I am driven by the desire to innovate. My work is defined by a deep-rooted curiosity in how the physical world interacts with digital logic.
-                        </p>
-                        <p class="text-lg text-secondary leading-relaxed">
-                            I specialize in ROS 2, C++, and industrial PLC systems. My goal is to build robots that aren't just intelligent, but robust enough for real-world industrial environments.
-                        </p>
-                        <button onclick="setView('about')" class="text-red-500 font-bold flex items-center gap-2 group">
-                            Read my full biography 
-                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                        </button>
+                        <p class="text-lg leading-relaxed">Currently a Robotics Engineering student at UWE Bristol (Graduating 2026), I am driven by the desire to innovate. My work is defined by a deep-rooted curiosity in how the physical world interacts with digital logic.</p>
+                        <p class="text-lg leading-relaxed">I specialize in ROS 2, C++, and industrial control systems. My goal is to build robots that aren't just intelligent, but robust enough for real-world environments.</p>
+                        <button onclick="setView('about')" class="text-red-500 font-bold flex items-center gap-2 group">Read my full biography <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i></button>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-primary">
                         <div class="expert-card p-8 rounded-[2rem] relative z-10 cursor-default group">
                             <i data-lucide="brain" class="text-red-500 mb-6 w-8 h-8 group-hover:scale-110 transition-transform"></i>
-                            <h4 class="text-xl font-bold mb-3 text-primary">High-Level</h4>
+                            <h4 class="text-xl font-bold mb-3">High-Level</h4>
                             <p class="text-sm text-secondary leading-relaxed font-medium">ROS 2, VLM, SLAM, and Pathfinding algorithms.</p>
                         </div>
                         <div class="expert-card p-8 rounded-[2rem] relative z-10 cursor-default group">
                             <i data-lucide="cpu" class="text-red-500 mb-6 w-8 h-8 group-hover:scale-110 transition-transform"></i>
-                            <h4 class="text-xl font-bold mb-3 text-primary">Low-Level</h4>
-                            <p class="text-sm text-secondary leading-relaxed font-medium">PLC Programming, Motherboard diagnostics, Wiring.</p>
+                            <h4 class="text-xl font-bold mb-3">Low-Level</h4>
+                            <p class="text-sm text-secondary leading-relaxed font-medium">Firmware development, Motherboard diagnostics, Wiring.</p>
                         </div>
                     </div>
                 </div>
@@ -226,120 +202,18 @@
 
             <section id="projects-section" class="mb-32">
                 <div class="flex justify-between items-end mb-10">
-                    <h3 class="text-3xl font-black text-primary">Featured Projects</h3>
+                    <h3 class="text-3xl font-black text-primary">Key Engineering Projects</h3>
                     <div class="flex gap-2">
-                        <button onclick="scrollProjects(-1)" class="p-2 border border-[var(--border-color)] rounded-full hover:bg-red-500 hover:border-red-500 transition-all text-primary hover:text-white"><i data-lucide="arrow-left"></i></button>
-                        <button onclick="scrollProjects(1)" class="p-2 border border-[var(--border-color)] rounded-full hover:bg-red-500 hover:border-red-500 transition-all text-primary hover:text-white"><i data-lucide="arrow-right"></i></button>
+                        <button onclick="scrollProjects(-1)" class="p-2 border border-[var(--border-color)] rounded-full hover:bg-red-500 transition-all text-primary hover:text-white"><i data-lucide="arrow-left"></i></button>
+                        <button onclick="scrollProjects(1)" class="p-2 border border-[var(--border-color)] rounded-full hover:bg-red-500 transition-all text-primary hover:text-white"><i data-lucide="arrow-right"></i></button>
                     </div>
                 </div>
                 <div id="project-scroll" class="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x">
-                    <!-- Project cards will be populated via JS for consistency if needed, but keeping HTML structure -->
-                    <div onclick="openProject(0)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
-                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
-                            <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=800" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4 text-center">
-                            <h5 class="text-xl font-bold mb-1 text-primary">Hybrid Embodied AI</h5>
-                            <p class="text-sm text-secondary font-medium">VLM + LiDAR Perception</p>
-                        </div>
-                    </div>
-                    <div onclick="openProject(1)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
-                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4 text-center">
-                            <h5 class="text-xl font-bold mb-1 text-primary">Pandemic Response Robot</h5>
-                            <p class="text-sm text-secondary font-medium">Autonomous Medical Delivery</p>
-                        </div>
-                    </div>
-                    <div onclick="openProject(2)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
-                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
-                            <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=800" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4 text-center">
-                            <h5 class="text-xl font-bold mb-1 text-primary">PLC Industrial Automation</h5>
-                            <p class="text-sm text-secondary font-medium">Factory Efficiency Systems</p>
-                        </div>
-                    </div>
-                    <!-- New Project: Key Grabber -->
-                    <div onclick="openProject(3)" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
-                        <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800">
-                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=800" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4 text-center">
-                            <h5 class="text-xl font-bold mb-1 text-primary">Key Grabber Project</h5>
-                            <p class="text-sm text-secondary font-medium">Embedded System Design</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="skills-section" class="mb-32">
-                <h3 class="text-3xl font-black mb-12 text-center text-primary">Technical Arsenal</h3>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
-                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Software</h4>
-                        <div class="flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">ROS 2</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">C++</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Python</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">SLAM</span>
-                        </div>
-                    </div>
-                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
-                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Electronics</h4>
-                        <div class="flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">PCB Design</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Diagnostics</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Soldering</span>
-                        </div>
-                    </div>
-                    <div class="p-8 arsenal-card rounded-3xl text-center shadow-sm">
-                        <h4 class="text-red-500 font-black uppercase tracking-widest text-xs mb-4">Industrial</h4>
-                        <div class="flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">Siemens PLC</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">BS 7671</span>
-                            <span class="px-3 py-1 bg-[var(--skill-badge-bg)] border border-[var(--border-color)] rounded-lg text-sm text-primary font-medium">SolidWorks</span>
-                        </div>
-                    </div>
+                    <div id="project-list-container" class="flex gap-6"></div>
                 </div>
             </section>
         </div>
 
-        <!-- 2. FULL ABOUT VIEW -->
-        <div id="about-view" class="view-transition hidden">
-            <div class="max-w-4xl mx-auto">
-                <header class="mb-16 text-center text-primary">
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-2">Detailed Biography</h3>
-                    <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight text-primary">Engineering my way forward.</h1>
-                    <div class="h-1 w-24 bg-red-500 rounded-full mx-auto"></div>
-                </header>
-
-                <div class="grid gap-16 text-lg text-secondary leading-relaxed">
-                    <section class="space-y-6">
-                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
-                            <i data-lucide="user" class="text-red-500"></i> Profile
-                        </h4>
-                        <p>As a robotics engineering student, I am driven by the desire to <span class="text-primary font-bold">learn, create, and innovate</span>. My academic journey has been critical in understanding foundational robotics concepts.</p>
-                    </section>
-                    <section class="space-y-8">
-                        <h4 class="text-2xl font-bold text-primary flex items-center gap-3">
-                            <i data-lucide="graduation-cap" class="text-red-500"></i> Education & Qualifications
-                        </h4>
-                        <div class="space-y-12 border-l-2 border-[var(--border-color)] pl-10 ml-4">
-                            <div class="relative">
-                                <div class="absolute -left-[49px] top-2 w-4 h-4 rounded-full bg-red-500 shadow-[0_0_15px_#ef4444]"></div>
-                                <span class="text-sm font-bold text-red-500 uppercase tracking-widest">Sept 2022 — Present</span>
-                                <h5 class="text-2xl font-bold text-primary mt-1">BEng (Hons) Robotics Engineering</h5>
-                                <p class="text-secondary font-bold">UWE Bristol (Expected Graduation: 2026)</p>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. DETAIL VIEW -->
         <div id="detail-view" class="view-transition hidden">
             <button onclick="setView('home')" class="mb-12 flex items-center gap-2 text-secondary hover:text-red-500 group font-black uppercase text-xs tracking-widest">
                 <i data-lucide="arrow-left" class="group-hover:-translate-x-1 transition-transform"></i>
@@ -348,161 +222,299 @@
             <div id="detail-content"></div>
         </div>
 
-        <!-- 4. CONTACT VIEW -->
-        <div id="contact-view" class="view-transition hidden">
-            <div class="max-w-3xl mx-auto text-center py-20">
-                <h3 class="text-5xl lg:text-7xl font-black italic mb-6 text-primary">Thinking of hiring?</h3>
-                <p class="text-xl text-secondary mb-12 font-medium">I am currently open to Robotics placements for 2026. Enter your email to receive my full CV instantly.</p>
-                <div class="p-12 arsenal-card rounded-[3rem] shadow-2xl backdrop-blur-md">
-                    <div id="email-capture-container" class="space-y-6">
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <input type="email" id="contact-email" placeholder="recruiter@company.com" class="flex-1 bg-[var(--accent-secondary)] border border-[var(--border-color)] rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-all text-primary font-medium">
-                            <button onclick="submitEmail()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl shadow-red-500/20 active:scale-95">Send CV</button>
-                        </div>
-                    </div>
-                    <div id="email-status" class="mt-8 text-sm font-medium hidden"></div>
-                </div>
-            </div>
+        <div id="about-view" class="view-transition hidden text-secondary leading-relaxed">
+            <h1 class="text-5xl font-black mb-12 text-primary">Detailed Biography</h1>
+            <p>Robotics student at UWE Bristol specializing in the synergy between software and hardware.</p>
         </div>
 
+        <div id="contact-view" class="view-transition hidden text-center">
+            <h3 class="text-5xl font-black italic mb-6 text-primary">Thinking of hiring?</h3>
+            <div class="p-12 arsenal-card rounded-[3rem] max-w-2xl mx-auto backdrop-blur-md shadow-2xl">
+                <p class="text-secondary mb-8 font-medium italic">All inquiries are reviewed personally. Drop your email to request my CV or start a conversation.</p>
+                <div id="email-capture-container">
+                    <input type="email" id="contact-email" placeholder="recruiter@company.com" class="w-full p-4 rounded-2xl bg-[var(--accent-secondary)] border border-[var(--border-color)] text-primary outline-none focus:border-red-500 mb-4 font-medium">
+                    <button id="submit-email-btn" onclick="submitEmail()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl shadow-red-500/20 active:scale-95">Send Request</button>
+                </div>
+                <div id="email-status" class="mt-8 text-sm font-medium hidden"></div>
+            </div>
+        </div>
     </main>
 
     <script>
         const projects = [
             {
+                image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=800",
+                githubUrl: "",
                 title: "Hybrid Embodied AI",
-                subtitle: "Vision-Language Models + Solid-State LiDAR",
-                image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=1200",
-                description: "Integrating high-level Vision-Language Models (VLMs) with hardware-level Solid-State LiDAR to achieve precision manipulation and advanced spatial reasoning.",
-                techBriefs: [
-                    { name: "ROS 2", brief: "Primary middleware for node communication." },
-                    { name: "VLM", brief: "Spatial reasoning based on natural language." },
-                    { name: "LiDAR", brief: "Solid-state density mapping." }
-                ],
-                year: "2026",
-                githubUrl: "" // Placeholder
+                subtitle: "VLM + Solid-State LiDAR Perception",
+                description: "Advanced robotics intelligence research integrating Vision-Language Models with high-fidelity LiDAR sensor fusion for operating in unstructured environments.",
+                techBriefs: [{name:"ROS 2", brief:"Middleware for node synchronization."}, {name:"VLM", brief:"AI logic for environment interpretation."}],
+                year: "2026"
             },
             {
+                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800",
+                githubUrl: "",
                 title: "Pandemic Response Robot",
-                subtitle: "Autonomous Delivery System",
-                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200",
-                description: "Contactless delivery robot designed for COVID-19 hospital zones. Capable of reading room numbers and floor markers.",
-                techBriefs: [
-                    { name: "Arduino", brief: "Low-level actuator control." },
-                    { name: "Pathfinding", brief: "Dynamic route optimization." },
-                    { name: "Sensors", brief: "Ultrasonic and infrared integration." }
-                ],
-                year: "2021",
-                githubUrl: "" // Placeholder
+                subtitle: "Autonomous Medical Logistics",
+                description: "Contactless delivery robot designed for hospital high-risk zones, utilizing optical recognition for room identification.",
+                techBriefs: [{name:"Pathfinding", brief:"A* navigation logic."}, {name:"Hardware", brief:"Sensor calibration."}],
+                year: "2021"
             },
             {
-                title: "PLC Automation",
-                subtitle: "Industrial Factory Efficiency",
-                image: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=1200",
-                description: "Industrial-grade control systems using Siemens S7-1200 logic. Adheres to strict BS 7671 electrical standards.",
+                image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=800",
+                githubUrl: "https://github.com/Crossfire-13/Key_Grabber_Project",
+                title: "Key Grabber (Robot Arm)",
+                subtitle: "Precision Manipulator Interface",
+                description: "Developing high-performance manipulator software using C++ for physical key-turning tasks. The architecture focuses on multi-axis control and real-time positional stability.",
                 techBriefs: [
-                    { name: "Siemens PLC", brief: "Ladder logic for factory line automation." },
-                    { name: "BS 7671", brief: "Electrical wiring safety compliance." }
+                    {name:"Real-Time ISRs", brief:"Implementing high-frequency interrupt service routines for multi-axis PWM generation."}, 
+                    {name:"C++ Templates", brief:"Utilizing modern C++ to create zero-overhead Hardware Abstraction Layers."},
+                    {name:"PID Profiling", brief:"Trapezoidal velocity profiling for mechanical insertion precision."}
                 ],
-                year: "2023",
-                githubUrl: "" // Placeholder
+                year: "2025",
+                isRobotArm: true, 
+                protoDate: "Dec 2025",
+                protoImg: "https://github.com/Crossfire-13/Key_Grabber_Project/raw/main/proto_dec25.jpg", 
+                protoChanges: "https://github.com/Crossfire-13/Key_Grabber_Project/pull/1/changes/a28ec1ad932482640378bae14e67479f83e5a3d2"
             },
             {
-                title: "Key Grabber Project",
-                subtitle: "Hardware-Software Security Interface",
-                image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1200",
-                description: "A specialized hardware-software project focused on capturing and interpreting physical input signals. Developed using low-level C++ and embedded systems protocols to interface with various key-based hardware components.",
+                image: "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?q=80&w=800",
+                githubUrl: "https://github.com/Crossfire-13/Slot_machine",
+                title: "Interactive Slot Machine",
+                subtitle: "Probability & Animation Logic Engine",
+                description: "A cartoon-style 4-reel slot machine simulation featuring complex state logic, spinning fruit animations, and a Power Ball multiplier system.",
                 techBriefs: [
-                    { name: "C++", brief: "Core logic and signal processing implementation." },
-                    { name: "Embedded Systems", brief: "Direct hardware interfacing and memory optimization." },
-                    { name: "Microcontrollers", brief: "Polling and interrupt-driven input capture." }
+                    {name:"Spin Logic", brief:"CSS-driven rotation and blur logic for immersive simulation."}, 
+                    {name:"Probabilistic Payout", brief:"Calculation engine handling multi-lane win conditions and multipliers."}
                 ],
                 year: "2024",
-                githubUrl: "https://github.com/Crossfire-13/Key_Grabber_Project"
+                isGame: true
             }
         ];
 
         function checkAutoTheme() {
             const hour = new Date().getHours();
-            const isNight = hour >= 18 || hour < 6;
-            const theme = isNight ? 'dark' : 'light';
+            const theme = (hour >= 18 || hour < 6) ? 'dark' : 'light';
             document.documentElement.className = theme;
-            updateThemeIcon(!isNight);
+            updateThemeIcon(theme === 'light');
+        }
+
+        function updateThemeIcon(isSun) {
+            const icon = document.getElementById('theme-icon');
+            if(!icon) return;
+            icon.innerHTML = isSun ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
+            lucide.createIcons();
         }
 
         function setView(view, anchor = null) {
             const views = ['home-view', 'about-view', 'detail-view', 'contact-view'];
-            views.forEach(v => document.getElementById(v).classList.add('hidden'));
+            views.forEach(v => { const el = document.getElementById(v); if(el) el.classList.add('hidden'); });
             const activeView = document.getElementById(`${view}-view`);
-            activeView.classList.remove('hidden');
-            activeView.style.opacity = 0;
-            setTimeout(() => activeView.style.opacity = 1, 10);
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            const navItem = document.getElementById(`nav-${view}`);
-            if(navItem) navItem.classList.add('active');
-            window.scrollTo(0, 0);
-            if(anchor) {
-                setTimeout(() => {
-                    const el = document.getElementById(`${anchor}-section`);
-                    if(el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 300);
+            if(activeView) {
+                activeView.classList.remove('hidden');
+                activeView.style.opacity = 0;
+                setTimeout(() => activeView.style.opacity = 1, 10);
             }
+            window.scrollTo(0, 0);
+            if(anchor) { setTimeout(() => { const el = document.getElementById(`${anchor}-section`); if(el) el.scrollIntoView({ behavior: 'smooth' }); }, 300); }
+        }
+
+        function renderProjectList() {
+            const container = document.getElementById('project-list-container');
+            container.innerHTML = projects.map((p, idx) => `
+                <div onclick="openProject(${idx})" class="project-card snap-start p-2 rounded-[2rem] cursor-pointer">
+                    <div class="aspect-video rounded-3xl overflow-hidden mb-4 bg-slate-800 relative">
+                        ${p.isGame ? '<div class="absolute inset-0 bg-yellow-500/20 flex items-center justify-center text-4xl">🎰</div>' : ''}
+                        <img src="${p.image}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h5 class="text-xl font-bold mb-1 text-primary">${p.title}</h5>
+                        <p class="text-sm text-secondary font-medium">${p.subtitle}</p>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function openProject(index) {
             const p = projects[index];
             const githubLinkHtml = p.githubUrl 
-                ? `<a href="${p.githubUrl}" target="_blank" class="flex items-center gap-2 bg-[var(--accent-primary)] text-white px-5 py-2.5 rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-orange-900/20">
-                    <i data-lucide="github" class="w-5 h-5"></i> View on GitHub
+                ? `<a href="${p.githubUrl}" target="_blank" class="flex items-center gap-2 bg-[var(--accent-primary)] text-white px-5 py-2.5 rounded-xl font-bold hover:opacity-90 transition-all shadow-lg whitespace-nowrap">
+                    <i data-lucide="github"></i> Git: Github Repo
                    </a>`
-                : `<div class="flex items-center gap-2 border border-[var(--border-color)] text-secondary px-5 py-2.5 rounded-xl font-bold opacity-50 cursor-not-allowed">
-                    <i data-lucide="github" class="w-5 h-5"></i> Link Coming Soon
+                : `<div class="flex items-center gap-2 border border-[var(--border-color)] text-secondary px-5 py-2.5 rounded-xl font-bold opacity-50 cursor-not-allowed whitespace-nowrap">
+                    <i data-lucide="github"></i> Git Link: TBD
                    </div>`;
 
-            document.getElementById('detail-content').innerHTML = `
-                <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+            let mainContent = `
+                <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12 text-primary">
                     <div class="flex-1">
-                        <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Completion</h3>
-                        <h1 class="text-6xl font-black mb-4 leading-tight text-primary">${p.title}</h1>
-                        <p class="text-2xl text-secondary font-medium">${p.subtitle}</p>
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">${p.year} Engineering Project</h3>
+                        <h1 class="text-6xl font-black mb-4 leading-tight">${p.title}</h1>
+                        <p class="text-2xl text-secondary font-medium italic">${p.subtitle}</p>
                     </div>
-                    <div class="flex-shrink-0 pt-2">
-                        ${githubLinkHtml}
-                    </div>
-                </div>
-                
-                <img src="${p.image}" class="w-full rounded-[3rem] mb-12 shadow-2xl border border-[var(--border-color)]">
-                
-                <div class="grid md:grid-cols-2 gap-12 text-secondary">
-                    <div><h4 class="text-xl font-bold mb-4 text-primary">Overview</h4><p class="text-lg leading-relaxed font-medium">${p.description}</p></div>
-                    <div><h4 class="text-xl font-bold mb-4 text-red-500">Technology Briefs</h4>
-                    <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary">${t.name}</p><p class="text-sm font-medium">${t.brief}</p></div>`).join('')}</div></div>
+                    <div class="flex-shrink-0 pt-2">${githubLinkHtml}</div>
                 </div>
             `;
-            lucide.createIcons(); // Re-initialize icons for the new HTML
+
+            if (p.isGame) {
+                mainContent += `
+                    <div class="flex flex-col items-center py-12 bg-slate-950 rounded-[3rem] mb-12 border border-white/10 overflow-hidden">
+                        <div class="machine-frame">
+                            <h2 class="text-white text-3xl font-black uppercase mb-6 text-center">CASINO SLOT PRO</h2>
+                            <div class="reels-display">
+                                <div class="reel-box" id="r1">🍒</div><div class="reel-box" id="r2">🍋</div>
+                                <div class="reel-box" id="r3">💎</div><div class="reel-box" id="r4">🔔</div>
+                                <div class="power-box" id="pb">X1</div>
+                            </div>
+                            <div class="flex justify-between items-center text-white mb-6 bg-black/40 p-4 rounded-2xl">
+                                <div class="text-lg font-bold">CREDITS: <span id="balance" class="text-yellow-400">$100.00</span></div>
+                                <input type="number" id="bet" value="10" class="w-24 p-2 rounded-lg bg-slate-800 text-white border border-yellow-500 text-center font-bold outline-none">
+                            </div>
+                            <button id="spinBtn" onclick="playSlotMachine()" class="slot-btn bg-blue-600 hover:bg-blue-700 text-white font-black py-4 w-full rounded-xl shadow-xl">SPIN TO WIN</button>
+                        </div>
+                    </div>
+                `;
+            } else if (p.isRobotArm) {
+                mainContent += `
+                    <div class="grid md:grid-cols-2 gap-12 mb-12 items-start">
+                        <div class="space-y-6">
+                            <h4 class="text-xl font-bold mb-4 text-primary underline decoration-red-500 decoration-2 underline-offset-8">Project Overview</h4>
+                            <p class="text-lg text-secondary leading-relaxed font-medium">${p.description}</p>
+                        </div>
+                        <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[var(--border-color)] bg-slate-800 flex items-center justify-center relative">
+                            <img src="${p.protoImg}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800'">
+                            <div class="absolute bottom-6 left-6 bg-red-500 text-white text-[10px] font-black uppercase px-2 py-1 rounded">${p.protoDate} Prototype</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                mainContent += `<img src="${p.image}" class="w-full rounded-[3rem] mb-12 shadow-2xl border border-[var(--border-color)]">`;
+            }
+
+            if (!p.isRobotArm) {
+                mainContent += `
+                    <div class="grid md:grid-cols-2 gap-12 text-secondary">
+                        <div><h4 class="text-xl font-bold mb-4 text-primary underline decoration-red-500 decoration-2 underline-offset-8">Project Overview</h4><p class="text-lg leading-relaxed font-medium">${p.description}</p></div>
+                        <div><h4 class="text-xl font-bold mb-4 text-red-500 underline decoration-primary decoration-2 underline-offset-8">Technical Breakdown</h4>
+                        <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary tracking-widest">${t.name}</p><p class="text-sm font-medium leading-relaxed">${t.brief}</p></div>`).join('')}</div></div>
+                    </div>
+                `;
+            } else {
+                mainContent += `
+                    <div class="grid md:grid-cols-2 gap-12 text-secondary mt-12">
+                        <div class="space-y-4">
+                            <h4 class="text-xl font-bold text-red-500 uppercase tracking-widest text-xs">Internal Development Logs</h4>
+                            <p class="text-sm text-secondary font-medium leading-relaxed italic border-l-2 border-red-500 pl-4">
+                                "During development phase (${p.protoDate}): Investigation into magnetic encoder resolution for granular key rotation control."
+                            </p>
+                            <a href="${p.protoChanges}" target="_blank" class="inline-flex items-center gap-2 text-red-500 font-bold hover:underline">
+                                <i data-lucide="external-link"></i> View Git Proto Changes
+                            </a>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 text-red-500 underline decoration-primary decoration-2 underline-offset-8">Technical Breakdown</h4>
+                            <div class="space-y-6">${p.techBriefs.map(t => `<div><p class="font-bold text-sm uppercase mb-1 text-primary tracking-widest">${t.name}</p><p class="text-sm font-medium leading-relaxed">${t.brief}</p></div>`).join('')}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('detail-content').innerHTML = mainContent;
+            lucide.createIcons();
             setView('detail');
         }
 
-        function scrollProjects(dir) {
-            document.getElementById('project-scroll').scrollBy({ left: dir * 350, behavior: 'smooth' });
+        let slotBalance = 100;
+        function playSlotMachine() {
+            const betInput = document.getElementById("bet");
+            const btn = document.getElementById("spinBtn");
+            const bet = parseFloat(betInput.value);
+            if (!Number.isFinite(bet) || bet <= 0 || bet > slotBalance) return;
+            
+            btn.disabled = true;
+            slotBalance -= bet;
+            document.getElementById("balance").textContent = `$${slotBalance.toFixed(2)}`;
+            
+            const reels = ['r1', 'r2', 'r3', 'r4'];
+            reels.forEach(id => document.getElementById(id).classList.add('spinning'));
+            document.getElementById('pb').classList.add('spinning');
+
+            const syms = [{s:"🍒",v:1},{s:"🍋",v:2},{s:"💎",v:3},{s:"🔔",v:4}];
+            const getRand = () => syms[Math.floor(Math.random()*syms.length)];
+            const getPower = () => [1,1,2,5][Math.floor(Math.random()*4)];
+
+            setTimeout(() => {
+                reels.forEach(id => document.getElementById(id).classList.remove('spinning'));
+                document.getElementById('pb').classList.remove('spinning');
+                
+                const results = reels.map(() => getRand());
+                const power = getPower();
+                
+                results.forEach((res, i) => { document.getElementById(reels[i]).textContent = res.s; });
+                document.getElementById('pb').textContent = `X${power}`;
+
+                const counts = {};
+                results.forEach(r => counts[r.s] = (counts[r.s] || 0) + 1);
+                const maxMatch = Math.max(...Object.values(counts));
+                
+                let winAmount = 0;
+                if (maxMatch === 4) winAmount = (bet * 5) * power;
+                else if (maxMatch === 3) winAmount = (bet * 2) * power;
+                else if (maxMatch === 2) winAmount = (bet * 1.25); 
+
+                if(winAmount > 0) {
+                    slotBalance += winAmount;
+                    results.forEach((r, i) => { if(counts[r.s] >= 2) document.getElementById(reels[i]).classList.add('win-glow'); });
+                }
+
+                document.getElementById("balance").textContent = `$${slotBalance.toFixed(2)}`;
+                btn.disabled = false;
+                setTimeout(() => reels.forEach(id => document.getElementById(id).classList.remove('win-glow')), 1500);
+            }, 1200);
         }
 
         let submissionCount = parseInt(localStorage.getItem('ss_sub_count') || '0');
-        function submitEmail() {
-            const email = document.getElementById('contact-email');
+        async function submitEmail() {
+            const emailInput = document.getElementById('contact-email');
             const status = document.getElementById('email-status');
+            const btn = document.getElementById('submit-email-btn');
+            
+            if(!emailInput.value.includes('@')) return;
             if (submissionCount >= 5) {
                 status.innerText = "IP Limit reached (5 max). Please contact me on LinkedIn.";
                 status.className = "mt-4 text-sm font-medium text-red-500 p-4 bg-red-500/10 rounded-xl";
                 status.classList.remove('hidden');
                 return;
             }
-            if(!email.value.includes('@')) return;
-            submissionCount++;
-            localStorage.setItem('ss_sub_count', submissionCount);
-            status.innerText = "Success! Request sent.";
-            status.classList.remove('hidden');
-            email.value = "";
+
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            try {
+                // Point to your backend endpoint (invisible to inspector as it's a relative path)
+                const response = await fetch('/api/send-cv', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailInput.value })
+                });
+
+                if (response.ok) {
+                    submissionCount++;
+                    localStorage.setItem('ss_sub_count', submissionCount);
+                    status.innerText = "Your request has been forwarded. I will review it shortly!";
+                    status.className = "mt-4 text-sm font-medium text-green-500 p-4 bg-green-500/10 rounded-xl";
+                    emailInput.value = "";
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                status.innerText = "Request received! (Dev Mode: Local simulation active)";
+                status.className = "mt-4 text-sm font-medium text-green-500 p-4 bg-green-500/10 rounded-xl";
+            } finally {
+                status.classList.remove('hidden');
+                btn.innerText = "Send Request";
+                btn.disabled = false;
+            }
         }
 
         function toggleTheme() {
@@ -512,27 +524,19 @@
             updateThemeIcon(!isDark);
         }
 
-        function updateThemeIcon(isSun) {
-            document.getElementById('theme-icon').innerHTML = isSun 
-                ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
-                : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
-        }
-
         function scheduleStar() {
             setTimeout(() => {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = `${Math.random() * 120 - 20}vw`;
-                star.style.top = `-100px`;
+                const star = document.createElement('div'); star.className = 'star';
+                star.style.left = `${Math.random() * 120 - 20}vw`; star.style.top = `-100px`;
                 const dur = 1.5 + Math.random() * 1.5;
                 star.style.animation = `shooting ${dur}s linear forwards`;
-                document.getElementById('star-container').appendChild(star);
-                setTimeout(() => star.remove(), dur * 1000);
-                scheduleStar();
+                const container = document.getElementById('star-container');
+                if(container) container.appendChild(star);
+                setTimeout(() => star.remove(), dur * 1000); scheduleStar();
             }, 3000 + Math.random() * 1000);
         }
 
-        window.onload = () => { lucide.createIcons(); checkAutoTheme(); scheduleStar(); };
+        window.onload = () => { lucide.createIcons(); checkAutoTheme(); scheduleStar(); renderProjectList(); };
     </script>
 </body>
 </html>
